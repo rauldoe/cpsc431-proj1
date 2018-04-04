@@ -4,7 +4,7 @@
     <title>CPSC 431 FINAL PROJECT</title>
   </head>
   <body>
-    <h1 style="text-align:center">Cal State Fullerton Basketball Statistics</h1>
+    <h1 style="text-align:center">Final Project.  Cal State Fullerton Basketball Statistics</h1>
 
 <?php
       require_once('Address.php');
