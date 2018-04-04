@@ -1,0 +1,11 @@
+ID,Name_First,Name_Last,Street,City,State,Country,ZipCode
+'100','Donald','Duck','1313 S. Harbor Blvd.','Anaheim','CA','USA','92808-3232'
+'101','Daisy','Duck','1180 Seven Seas Dr.','Lake Buena Vista','FL','USA','32830'
+'102','Mickey','Mouse','1313 S. Harbor Blvd.','Anaheim','CA','USA','92808-3232'
+'103','Pluto','Dog','1313 S. Harbor Blvd.','Anaheim','CA','USA','92808-3232'
+'104','Scrooge','McDuck','1180 Seven Seas Dr.','Lake Buena Vista','FL','USA','32830'
+'105','Huebert (Huey)','Duck','1110 Seven Seas Dr.','Lake Buena Vista','FL','USA','32830'
+'106','Deuteronomy (Dewey)','Duck','1110 Seven Seas Dr.','Lake Buena Vista','FL','USA','32830'
+'107','Louie','Duck','1110 Seven Seas Dr.','Lake Buena Vista','FL','USA','32830'
+'108','Phooey','Duck','1-1 Maihama Urayasu','Chiba Prefecture','Disney Tokyo','Japan',NULL
+'109','Della','Duck','77700 Boulevard du Parc','Coupvray','Disney Paris','France',NULL
