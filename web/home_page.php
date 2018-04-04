@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CPSC 431 HW-3</title>
+    <title>CPSC 431 FINAL PROJECT</title>
   </head>
   <body>
     <h1 style="text-align:center">Cal State Fullerton Basketball Statistics</h1>
