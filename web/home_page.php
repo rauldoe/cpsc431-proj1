@@ -13,7 +13,7 @@
       // Connect to database
       $db = new mysqli('127.0.0.1', 'hw3user', 'password', 'hw3');
       //if (mysql_connect_errno())
-      
+      //sample change
       $query ="
       SELECT roster.ID
       , roster.name_Last
