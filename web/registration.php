@@ -1,14 +1,13 @@
 <?php 
-	require('setup_DB.php');
-	require('User.php');
+	require_once('setup_DB.php');
+	require_once('User.php');
 
+	//check post data
 	if (isset($_POST['register']))
 	{
-		$user_type = 1; // test value
-		$user = new User($_POST['username'], $user_type, $_POST['password']);
-
 		//add to database
-		$result = $user->add_to_DB();
+		$user_type = 1; // test value
+		$result = register_user($_POST['username'], $_POST['password'], $user_type);
 		echo $result;
 	}
 ?>
