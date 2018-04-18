@@ -63,6 +63,7 @@ CREATE TABLE Players (
     State varchar(100),
     Country varchar(100),
     ZipCode char(10),
+    currently_active bit(1) DEFAULT 0,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (Team) REFERENCES Sports_team (ID),
@@ -74,7 +75,9 @@ CREATE TABLE Players (
 CREATE TABLE Player_stats (
     ID int(10) unsigned not null AUTO_INCREMENT,
     Player_ID int(10) unsigned not null,
-    Stat_1 tinyint(3) unsigned DEFAULT 0,
+    points tinyint(3) unsigned DEFAULT 0,
+    assists tinyint(3) unsigned DEFAULT 0,
+    rebounds tinyint(3) unsigned DEFAULT 0,
 
 
     PRIMARY KEY (ID),
@@ -88,14 +91,16 @@ CREATE TABLE Game_match (
     Home_team int(10) unsigned,
     Away_team int(10) unsigned,
     Start_date datetime,
-    Home_team_won bit(1) DEFAULT null,
+    winning_team int(10) unsigned,
 
 
     PRIMARY KEY (ID),
     FOREIGN KEY (League) REFERENCES League (ID) ON DELETE CASCADE,
     FOREIGN KEY (Home_team) REFERENCES Sports_team (ID) ON DELETE SET NULL,
-    FOREIGN KEY (Away_team) REFERENCES Sports_team (ID) ON DELETE SET NULL
+    FOREIGN KEY (Away_team) REFERENCES Sports_team (ID) ON DELETE SET NULL,
+    FOREIGN KEY (winning_team) REFERENCES Sports_team (ID) ON DELETE SET NULL
 );
+
 
 -- Insert test data:
 
@@ -159,28 +164,28 @@ VALUES
 
 
 -- Player_stats
-INSERT INTO Player_stats (ID, Player_ID, Stat_1)
+INSERT INTO Player_stats (ID, Player_ID, points, assists, rebounds)
 VALUES
 
 	#League1 players
-	#Lebron James, avg should be: 26
-	(1, 1, 20),
-	(2, 1, 32),
+	#Lebron James, avg points should be: 26
+	(1, 1, 20, 2, 4),
+	(2, 1, 32, 5, 1),
 
 	#League2 players
-	#Michael Jordan, avg should be: 28.67
-	(3, 5, 42),
-	(4, 5, 23),
-	(5, 5, 21);
+	#Michael Jordan, avg points should be: 28.67
+	(3, 5, 42, 7, 21),
+	(4, 5, 23, 4, 18),
+	(5, 5, 21, 3, 19);
 
 -- Game_match, matches scheduled/played
-INSERT INTO Game_match (ID, League, Home_team, Away_team, Start_date, Home_team_won)
+INSERT INTO Game_match (ID, League, Home_team, Away_team, Start_date, winning_team)
 VALUES
 	
 	#League1 games
 	#Games that have already been played
 	(1, 1, 1, 2, "2018-04-02 18:30:00", 1), #April 2, 2018 at 6:30 PM, mike's team won
-	(2, 1, 1, 2, "2018-04-03 19:30:00", 0), #April 3, 2018 at 7:30 PM, scott's team won
+	(2, 1, 1, 2, "2018-04-03 19:30:00", 2), #April 3, 2018 at 7:30 PM, scott's team won
 
 	#Games that haven't been played yet
 	(3, 1, 2, 1, "2018-05-03 18:30:00", NULL) #May 5, 2018 at 6:30 PM, winner is TBD (to be determined)
