@@ -1,5 +1,7 @@
 <?php
-	require_once('setup_DB.php');
+	require_once("functions/setup_DB.php");
+	require_once("classes/Team.php");
+	require_once("classes/League.php");
 	session_start();
 
 	//User class
@@ -7,6 +9,8 @@
 	{
 		private $username;
 		private $type;
+		private $team = null;
+		private $league = null;
 
 		function __construct($username, $type)
 		{
@@ -34,9 +38,10 @@
 			return $this;
 		}
 
+		//for user type
 		function type()
 		{
-			// string type()
+			// int type()
 			if( func_num_args() == 0 )
 			{
 				return $this->type;
@@ -50,12 +55,59 @@
 
 			return $this;
 		}
+
+		//for team (will have to query database)
+		function my_team()
+		{
+			//only a coach can have a personal team
+			if($this->type != 2) 
+			{
+				return null;
+			}
+
+			// Team()
+			if( func_num_args() == 0 )
+			{
+				return $this->team;
+			}
+			
+			// void type(Team $team)
+			else if( func_num_args() == 1 )
+			{
+				$this->team = func_get_arg(0);
+			}
+
+			return $this;	
+		}
+
+		//for league (will have to query database)
+		function my_league()
+		{
+			//only a league owner can have a league
+			if($this->type != 1) 
+			{
+				return null;
+			}
+
+			// league()
+			if( func_num_args() == 0 )
+			{
+				return $this->league;
+			}
+			
+			// void league(League $league)
+			else if( func_num_args() == 1 )
+			{
+				$this->league = func_get_arg(0);
+			}
+
+			return $this;	
+		}
 	}
 
 
 	//-----Database Querying-----
 
-	//TODO: redirecting to proper page after
 	//add new user to database
 	function register_user($username, $password, $type)
 	{
@@ -75,20 +127,20 @@
 		$query = "INSERT INTO $user_table (Username, Password, User_type) 
 					VALUES ('$username', '$hashed', '$type')";
 
-		//return status message
-		if (!$db->query($query)) 
+		//if successful log them in, else return error message
+		if ($db->query($query)) 
 		{
-			$message = "Query to insert user failed - try again later";
+			$db->close();
+			login_user($username, $password);
 		}
 		else
 		{
-			$message = "Successful";
+			$db->close();
+			return "Query to insert user failed - try again later";
 		}
-
-		$db->close();
-		return $message;
 	}
 
+	//log in the user using session data
 	function login_user($username, $password)
 	{
 		//setup variables
@@ -113,19 +165,47 @@
 
 		//if reached this point, successful login
 		//update session data and refresh/redirect
+		$_SESSION['user']['ID'] = $result['ID'];
 		$_SESSION['user']['username'] = $result['Username'];
 		$_SESSION['user']['type'] = $result['User_type'];
-		header ("Location: login.php");
+		header ("Location: dashboard.php");
 		exit;
 	}
 
+
+
+	//logs out the user, reset session data
 	function logout_user()
 	{
-		session_destroy(); //This is only effective after the next run
-		$_SESSION = array(); //This fixes the problem uptop
+		$_SESSION['user'] = null;
 
 		//refresh/redirect
 		header ("Location: login.php");
 		exit;
 	}
+
+	//returns true if logged in, false if not
+	function is_logged_in()
+	{
+		//check session data
+		if (isset($_SESSION['user']))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	//return null if no user logged in, return the user if they are
+	function get_user()
+	{
+		if (is_logged_in())
+		{
+			$logged_in_user = new User($_SESSION['user']['username'], $_SESSION['user']['type']);
+
+			return $logged_in_user;
+		}
+		return null;
+	}
+
+
 ?>

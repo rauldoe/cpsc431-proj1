@@ -5,6 +5,9 @@
 	define("DB_NAME", 'final_project');
 
 	define("USER_TABLE", 'User');
+	define("TEAM_TABLE", 'Sports_team');
+	define("LEAGUE_TABLE", "League");
+	define("PLAYERS_TABLE", "Players");
 
 	//connect to database
 	function db_connect () 

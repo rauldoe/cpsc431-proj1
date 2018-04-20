@@ -1,12 +1,21 @@
 <?php
-	require_once('setup_DB.php');
-	require_once('User.php');
+	require_once('functions/setup_DB.php');
+	require_once('classes/User.php');
 
-	//check session data
-	if (isset($_SESSION['user']))
+	//if log out request found
+	if (isset($_POST['logout']))
 	{
-		echo "were logged in";
-		var_dump($_SESSION['user']);
+		logout_user();
+	}
+
+	//are we logged in? get_user() is null if not
+	$user = get_user();
+
+	//redirect to dashboard if logged in
+	if ($user !== null)
+	{
+		header ("Location: dashboard.php");
+		exit;
 	}
 
 	//check post data
@@ -16,10 +25,6 @@
 		$result = login_user($_POST['username'], $_POST['password']);
 		var_dump($result);
 	}
-	else if (isset($_POST['logout']))
-	{
-		logout_user();
-	}
 ?>
 
 <!DOCTYPE html>
@@ -28,16 +33,13 @@
 	<title>login</title>
 </head>
 <body>
-	<?php if (isset($_SESSION['user'])): ?>
-	<form method="post">
-		<button type="submit" name="logout">Log out</button>
-	</form>
-	<?php else: ?>
+	<h2>Login</h2>
 	<form method="post">
 		Username: <input type="text" name="username" required>
 		Password: <input type="text" name="password" required>
-		<button type="submit" name="login">Register</button>
+		<button type="submit" name="login">Login</button>
 	</form>
-	<?php endif; ?>
+	<br>
+	<a href="registration.php">Don't have an account?</a>
 </body>
 </html>

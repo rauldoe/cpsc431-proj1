@@ -44,11 +44,11 @@ CREATE TABLE League (
 CREATE TABLE Sports_team (
     ID int(10) unsigned not null AUTO_INCREMENT,
     League int(10) unsigned DEFAULT NULL,
-    Team_manager int(10) unsigned UNIQUE DEFAULT NULL,
+    Coach int(10) unsigned UNIQUE DEFAULT NULL,
     Team_name varchar(100) not null,
 
     PRIMARY KEY (ID),
-    FOREIGN KEY (Team_manager) REFERENCES User (ID) ON DELETE SET NULL,
+    FOREIGN KEY (Coach) REFERENCES User (ID) ON DELETE SET NULL,
     FOREIGN KEY (League) REFERENCES League (ID) ON DELETE SET NULL
 );
 
@@ -104,22 +104,25 @@ CREATE TABLE Game_match (
 
 -- Insert test data:
 
+
 -- "admin" should have access to everything
 -- league owners should have access to their league only
 -- team managers should have access to their team only
 INSERT INTO User(ID, Username, Password, User_type)
 VALUES
-	(1, "admin","admin",0),
+
+	#PASSWORDS ARE SAME AS USERNAME, this is the hashed version
+	(1, "admin","$2y$10$IDcGxN/A2iKujVty6xE1Fu.D2MHJzqYR1C.YWOl2s8vvLrWMO.jgq",0),
 
 	#League1
-	(2, "league_owner1", "league_owner1", 1),
-	(3, "mike", "mike", 2),	
-	(4, "scott", "scott", 2),
+	(2, "league_owner1", "$2y$10$A146VZ9mJtGEGz4ByZtxbeE27ItxU4gTTT6yV0cRqu1Nf/.vZPMDy", 1),
+	(3, "mike", "$2y$10$3IQ2rhQl6nK7hdcVvFtSI.q5rEdAhiNu5hAf0yRm.U9vCdT5esstC", 2),	
+	(4, "scott", "$2y$10$egmSyQojdIbrpPlU/VRZh.hIyBkY19yBdlKPeRbNYHcBhX/fsKsVO", 2),
 
 	#League2
-	(5, "league_owner2", "league_owner2", 1),
-	(6, "tim", "tim", 2),
-	(7, "kyle", "kyle", 2);
+	(5, "league_owner2", "$2y$10$fUH6Da3X35Vm8bVSDzGeSO2hYNUFdbNYitZjz1Vfv07qIOsQG3HQa", 1),
+	(6, "tim", "$2y$10$g8JniU13rqlszZWvooOYH.BXsuKCJC2aVfz782UaEJgxcPuD7Ho/G", 2),
+	(7, "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2);
 
 
 -- Leagues, "League1" is owned by "leage_owner1"
@@ -129,7 +132,7 @@ VALUES
 	(2, 5, "League2");
 
 -- Teams, "mike's team" is owned by "mike"
-INSERT INTO Sports_team (ID, League, Team_manager, Team_name)
+INSERT INTO Sports_team (ID, League, Coach, Team_name)
 VALUES
 	#League1 teams
 	(1, 1, 3, "mike's team"),
