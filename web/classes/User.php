@@ -109,6 +109,31 @@
 
 	//-----Database Querying-----
 
+	//get user data based on ID
+	function get_userinfo($user_id)
+	{
+		//setup variables
+		$user_table = USER_TABLE;
+		$db = db_connect();
+
+		// find
+		$query = "SELECT Email, Username, User_type, League FROM $user_table WHERE ID = $user_id";
+
+		if (!$result = $db->query($query))
+		{
+			return "Query to insert user failed - try again later";
+		}
+
+		if ($result->num_rows == 0)
+		{
+			return "no user with this ID";
+		}
+
+		$user_info = $result->fetch_assoc();
+		$db->close();
+		return $user_info;
+	}
+
 	//add new user to database
 	function register_user($email, $username, $password, $type, $league)
 	{

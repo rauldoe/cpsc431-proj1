@@ -11,15 +11,22 @@
 		$team = get_team($_SESSION['user']['ID']);
 
 		//put it in an object
-		$my_team = new Team ($team['Team_name'],
+		$team_object = new Team ($team['Team_name'],
 						 $user->username(),
 						 get_league_name($team['ID']),
 						 get_players($team['ID']));
 	}
 
-	var_dump($_SESSION);
 	$teams_in_league = get_teams($_SESSION['user']['league']);
-	var_dump($teams_in_league);
+
+	$teams_without_coach = array();
+	foreach ($teams_in_league as $team_row)
+	{
+		if ($team_row['Coach'] == null)
+		{
+			array_push($teams_without_coach, $teams_in_league);
+		}
+	}
 ?>
 
 <!DOCTYPE html>
@@ -50,14 +57,22 @@
 		<?php endforeach; ?>
 	</table>
 	<?php else: ?>
+		<h4>You have no team</h4>
+
+		<?php if ($teams_without_coach != []): ?>
 		Select a team:
 		<form method="post">
 			<select name="team">
 				<?php foreach ($teams_in_league as $team): ?>
-				<option value="<?php echo $team['ID'] ?>"><?php echo $team['Team_name'] ?></option>
+					<?php if ($team['Coach'] == null): ?>
+					<option value="<?php echo $team['ID'] ?>"><?php echo $team['Team_name'] ?></option>
+					<?php endif; ?>
 				<?php endforeach; ?>
 			</select>
 		</form>
+		<?php else: ?>
+		There are currently no open teams
+		<?php endif; ?>
 	<?php endif; ?>
 </body>
 </html>

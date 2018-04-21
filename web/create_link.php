@@ -12,7 +12,6 @@
 		header ("Location: login.php");
 		exit;
 	}
-	var_dump($_POST);
 
 	//pick the user type first
 	//if inviting a Coach, pick a league

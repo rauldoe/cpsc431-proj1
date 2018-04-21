@@ -34,37 +34,33 @@
 <body>
 
 	<h3>Teams in The League: </h3>
-	<?php foreach($teams as $team): ?>
-	<?php
-		$team_object = new Team($team['Team_name'],
-								$team['Coach'],
-								get_league_name($team['League']),
-								get_players($team['ID']));
-	?>
-	<h3><?php echo $team_object->name(); ?></h3>
+
 	<table>
 		<tr>
-			<th>Name</th>
-			<th>Address</th>
-			<th>is active</th>
-			<th>View</th>
+			<th>Team Name</th>
+			<th>Owner</th>
+			<th>Actions</th>
 		</tr>
-		<?php foreach($team_object->players() as $player): ?>
+		<?php foreach($teams as $team): ?>
+		<?php
+		$coach = get_userinfo($team['Coach']);
+		$team_object = new Team($team['Team_name'],
+								$coach['Username'],
+								get_league_name($team['League']),
+								get_players($team['ID']));
+		?>
 		<tr>
-			<td><?php echo $player->name(); ?></td>
-			<td><?php echo $player->get_full_address(); ?></td>
-			<td><?php echo $player->is_active(); ?></td>
+			<td><?php echo $team_object->name(); ?></td>
+			<td><?php echo $team_object->coach(); ?></td>
 			<td>
 				<form method="get" action="team_view.php">
 					<input type="text" name="team_ID" value="<?php echo $team['ID']; ?>" hidden>
 					<button type="submit">View Team</button>
 				</form>
-
 			</td>
 		</tr>
 		<?php endforeach; ?>
 	</table>
-	<?php endforeach; ?>
 
 </body>
 </html>
