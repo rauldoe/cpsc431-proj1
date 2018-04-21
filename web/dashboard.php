@@ -46,6 +46,7 @@
 <body>
 	<?php echo "Hello ".$user->username(); ?>
 
+	<!--League owner dashboard-->
 	<?php if ($user->type() == 1): ?>
 	<h2>League Manager Dashboard</h2>
 	<div>
@@ -55,17 +56,22 @@
 			<a href="manage_teams.php">Manage teams</a>
 			<a href="schedule_game.php">Schedule games</a>
 		<?php endif; ?>
+			<a href="create_link.php">Create invite link</a>
 			<a href="manage_staff.php">Manage staff</a>
 	</div>
+	<!--Coach dashboard-->
 	<?php elseif($user->type() == 2): ?>
 	<h2>Coach Dashboard</h2>
 	<div>
 		Your team: <?php var_dump($user->my_team()); ?>
 		
-		<?php if ($team !== null): ?>
-			<a href="team_view.php?team_ID=<?php echo $team['ID'] ?>">Manage my team</a>
-		<?php endif; ?>
+		<a href="my_team.php">Manage my team</a>
 	</div>
+	<!--Admin dashboard-->
+	<?php elseif($user->type() == 0): ?>
+	<h2>admin Dashboard</h2>
+
+	<a href="create_link.php">Create invite link</a>
 	<?php endif; ?>
 
 	<br>

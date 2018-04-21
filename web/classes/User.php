@@ -1,5 +1,6 @@
 <?php
 	require_once("functions/setup_DB.php");
+	require_once("functions/link_inviting.php");
 	require_once("classes/Team.php");
 	require_once("classes/League.php");
 	session_start();
@@ -109,35 +110,52 @@
 	//-----Database Querying-----
 
 	//add new user to database
-	function register_user($username, $password, $type)
+	function register_user($email, $username, $password, $type, $league)
 	{
 		//setup variables
 		$user_table = USER_TABLE;
 		$db = db_connect();
 
-		// check if username is unique
-		$same_names = $db->query("select * from user where username='".$username."'");
+		// check if username
+		$same_names = $db->query("select ID from user where username='".$username."'");
 		if ($same_names->num_rows > 0) 
 		{
 			return "Username is taken";
 		}
 
+		// check email is unique
+		$same_email = $db->query("select ID from user where email='".$email."'");
+		if ($same_email->num_rows > 0)
+		{
+			return "Email is taken";
+		}
+
 		//hash password and insert to database
 		$hashed = password_hash($password, PASSWORD_DEFAULT);
-		$query = "INSERT INTO $user_table (Username, Password, User_type) 
-					VALUES ('$username', '$hashed', '$type')";
+		$query = "INSERT INTO $user_table (Email, Username, Password, User_type, League) 
+					VALUES ('$email', '$username', '$hashed', '$type', '$league')";
 
-		//if successful log them in, else return error message
-		if ($db->query($query)) 
-		{
-			$db->close();
-			login_user($username, $password);
-		}
-		else
+		if (!$result = $db->query($query))
 		{
 			$db->close();
 			return "Query to insert user failed - try again later";
 		}
+
+		//successful
+
+		//delete the registration link(s) from DB with this email
+		if (!delete_link($email))
+		{
+			$db->close();
+			return "could not delete registration link, try again later";
+		}
+
+		//save the id inserted
+		$id_of_inserted_user = $db->insert_id;
+
+		//if successful return the id of the user created
+		$db->close();
+		return $id_of_inserted_user;
 	}
 
 	//log in the user using session data
@@ -168,6 +186,7 @@
 		$_SESSION['user']['ID'] = $result['ID'];
 		$_SESSION['user']['username'] = $result['Username'];
 		$_SESSION['user']['type'] = $result['User_type'];
+		$_SESSION['user']['league'] = $result['League'];
 		header ("Location: dashboard.php");
 		exit;
 	}
@@ -190,6 +209,24 @@
 		//check session data
 		if (isset($_SESSION['user']))
 		{
+			$db = db_connect();
+			$id = $_SESSION['user']['ID'];
+
+			//update the data
+			$same_names = $db->query("select * from user where ID = $id");
+			if ($same_names->num_rows == 0)
+			{
+				return "user not found";
+			}
+			$result = $same_names->fetch_assoc();
+			$db->close();
+
+			//update session data
+			$_SESSION['user']['ID'] = $result['ID'];
+			$_SESSION['user']['username'] = $result['Username'];
+			$_SESSION['user']['type'] = $result['User_type'];
+			$_SESSION['user']['league'] = $result['League'];
+
 			return true;
 		}
 		return false;
@@ -206,6 +243,5 @@
 		}
 		return null;
 	}
-
 
 ?>

@@ -25,6 +25,13 @@
 		$result = login_user($_POST['username'], $_POST['password']);
 		var_dump($result);
 	}
+
+	//check get data
+	if (isset($_GET['status']))
+	{
+		$status = $_GET['status'];
+		echo "Sorry: $status";
+	}
 ?>
 
 <!DOCTYPE html>
@@ -40,6 +47,6 @@
 		<button type="submit" name="login">Login</button>
 	</form>
 	<br>
-	<a href="registration.php">Don't have an account?</a>
+	Don't have an account? email us at 'fake_email@gmail.com' to request for one
 </body>
 </html>

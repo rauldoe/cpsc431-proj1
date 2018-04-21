@@ -23,11 +23,25 @@ USE final_project;
 -- User Table
 CREATE TABLE User (
     ID int(10) unsigned not null AUTO_INCREMENT,
+    Email varchar(100) not null UNIQUE,
     Username varchar(100) not null UNIQUE,
     Password varchar(100) not null,
     User_type int(1) DEFAULT NULL,
+    League int(10) unsigned DEFAULT NULL,
 
     PRIMARY KEY (ID)
+);
+
+-- Registration_links Table
+CREATE TABLE Registration_links(
+	ID int(10) unsigned not null AUTO_INCREMENT,
+	Link varchar(150) not null UNIQUE,
+	User_type int(1) not null,
+	Email varchar(100) not null,
+	League int(10) unsigned DEFAULT NULL,
+	League_name varchar(100) UNIQUE DEFAULT NULL,
+
+	PRIMARY KEY(ID)
 );
 
 -- League Table
@@ -101,6 +115,7 @@ CREATE TABLE Game_match (
     FOREIGN KEY (winning_team) REFERENCES Sports_team (ID) ON DELETE SET NULL
 );
 
+-- Alters
 
 -- Insert test data:
 
@@ -108,21 +123,21 @@ CREATE TABLE Game_match (
 -- "admin" should have access to everything
 -- league owners should have access to their league only
 -- team managers should have access to their team only
-INSERT INTO User(ID, Username, Password, User_type)
+INSERT INTO User(ID, Email, Username, Password, User_type, League)
 VALUES
 
 	#PASSWORDS ARE SAME AS USERNAME, this is the hashed version
-	(1, "admin","$2y$10$IDcGxN/A2iKujVty6xE1Fu.D2MHJzqYR1C.YWOl2s8vvLrWMO.jgq",0),
+	(1, "admin@admin.com", "admin","$2y$10$IDcGxN/A2iKujVty6xE1Fu.D2MHJzqYR1C.YWOl2s8vvLrWMO.jgq", 0, null),
 
 	#League1
-	(2, "league_owner1", "$2y$10$A146VZ9mJtGEGz4ByZtxbeE27ItxU4gTTT6yV0cRqu1Nf/.vZPMDy", 1),
-	(3, "mike", "$2y$10$3IQ2rhQl6nK7hdcVvFtSI.q5rEdAhiNu5hAf0yRm.U9vCdT5esstC", 2),	
-	(4, "scott", "$2y$10$egmSyQojdIbrpPlU/VRZh.hIyBkY19yBdlKPeRbNYHcBhX/fsKsVO", 2),
+	(2, "test@test.com", "league_owner1", "$2y$10$A146VZ9mJtGEGz4ByZtxbeE27ItxU4gTTT6yV0cRqu1Nf/.vZPMDy", 1, 1),
+	(3, "test1@test.com", "mike", "$2y$10$3IQ2rhQl6nK7hdcVvFtSI.q5rEdAhiNu5hAf0yRm.U9vCdT5esstC", 2, 1),	
+	(4, "test2@test.com", "scott", "$2y$10$egmSyQojdIbrpPlU/VRZh.hIyBkY19yBdlKPeRbNYHcBhX/fsKsVO", 2, 1),
 
 	#League2
-	(5, "league_owner2", "$2y$10$fUH6Da3X35Vm8bVSDzGeSO2hYNUFdbNYitZjz1Vfv07qIOsQG3HQa", 1),
-	(6, "tim", "$2y$10$g8JniU13rqlszZWvooOYH.BXsuKCJC2aVfz782UaEJgxcPuD7Ho/G", 2),
-	(7, "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2);
+	(5, "test4@test.com", "league_owner2", "$2y$10$fUH6Da3X35Vm8bVSDzGeSO2hYNUFdbNYitZjz1Vfv07qIOsQG3HQa", 1, 2),
+	(6, "test5@test.com", "tim", "$2y$10$g8JniU13rqlszZWvooOYH.BXsuKCJC2aVfz782UaEJgxcPuD7Ho/G", 2, 2),
+	(7, "test6@test.com", "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2, 2);
 
 
 -- Leagues, "League1" is owned by "leage_owner1"
@@ -191,8 +206,13 @@ VALUES
 	(2, 1, 1, 2, "2018-04-03 19:30:00", 2), #April 3, 2018 at 7:30 PM, scott's team won
 
 	#Games that haven't been played yet
-	(3, 1, 2, 1, "2018-05-03 18:30:00", NULL) #May 5, 2018 at 6:30 PM, winner is TBD (to be determined)
+	(3, 1, 2, 1, "2018-05-03 18:30:00", NULL); #May 5, 2018 at 6:30 PM, winner is TBD (to be determined)
 
 	#No league2 games have been scheduled/played
+
+-- Alters
+ALTER TABLE User AUTO_INCREMENT = 8; #need this cause we're starting at 8 (from the generated SQL test values above)
+ALTER TABLE User ADD FOREIGN KEY (League) REFERENCES League (ID) ON DELETE SET NULL;
+ALTER TABLE Registration_links ADD FOREIGN KEY (League) REFERENCES League (ID) ON DELETE SET NULL;
 
 
