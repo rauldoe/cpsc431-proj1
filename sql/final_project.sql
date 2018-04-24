@@ -76,7 +76,7 @@ CREATE TABLE Players (
     City varchar(100),
     State varchar(100),
     Country varchar(100),
-    ZipCode char(10),
+    ZipCode char(10) DEFAULT NULL,
     currently_active bit(1) DEFAULT 0,
 
     PRIMARY KEY (ID),

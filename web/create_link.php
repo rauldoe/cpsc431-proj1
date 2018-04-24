@@ -1,5 +1,4 @@
 <?php
-	require_once('functions/setup_DB.php');
 	require_once('functions/link_inviting.php');
 	require_once('classes/User.php');
 	require_once('classes/League.php');
@@ -81,17 +80,21 @@
 			<option value="1">League Owner</option>
 			<option value="2">Coach</option>
 		</select>
-		<?php elseif($user_type() == 1): ?>
-		<select name="user_to_invite">
-			<option value="2">Coach</option>
-		</select>
-		<?php endif; ?>
-
+		<br>
 		<button type="submit" name="pick_user_type">Pick invite type</button>
 	</form>
+		<?php elseif($user->type() == 1): ?>
+			Their email: <input type="email" name="email"><br>
+			League: <?php echo $user->my_league()->name(); ?><br>
+			<input type="number" name="league" value="<?php echo $league['ID']; ?>" hidden>
+			Type: Coach
+			<input type="number" name="user_type" value="2" hidden>
+			<br>
+			<button type="submit" name = "make_link_coach">Create link</button>
+		<?php endif; ?>
 	<?php endif; ?>
 
-	<!--if want to invite a coach-->
+	<!--For admin, if want to invite a coach-->
 	<?php if ($inviting_coach): ?>
 	<form method="post">
 		Their email: <input type="email" name="email"><br>

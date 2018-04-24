@@ -1,6 +1,6 @@
 <?php
-	require_once('functions/setup_DB.php');
 	require_once('classes/User.php');
+	require_once('classes/Team.php');
 
 	$user = get_user();
 
@@ -33,7 +33,10 @@
 	<h3>Team name: <?php echo $team_object->name(); ?></h3>
 	Coach: <?php echo $team_object->coach(); ?> <br>
 	League: <?php echo $team_object->league(); ?><br>
-	Players: <br>
+
+	<!--display players in team-->
+	<?php if ($team_object->players() != null): ?>
+	<br><strong>Players</strong><br>
 	<table>
 		<tr>
 			<th>Name</th>
@@ -48,5 +51,10 @@
 		</tr>
 		<?php endforeach; ?>
 	</table>
+
+	<!--if no players-->
+	<?php else: ?>
+	There are no players on this team
+	<?php endif; ?>
 </body>
 </html>

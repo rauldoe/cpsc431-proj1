@@ -1,5 +1,4 @@
 <?php
-	require_once('functions/setup_DB.php');
 	require_once('classes/User.php');
 
 	//if log out request found

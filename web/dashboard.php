@@ -1,5 +1,4 @@
 <?php
-	require_once('functions/setup_DB.php');
 	require_once('classes/User.php');
 
 	$user = get_user();
@@ -63,8 +62,17 @@
 	<?php elseif($user->type() == 2): ?>
 	<h2>Coach Dashboard</h2>
 	<div>
-		Your team: <?php var_dump($user->my_team()); ?>
-		
+		Your team: 
+
+		<?php if ($user->my_team()->name() == null)
+		{
+			echo "<br>You currently have no team, go make one in ";
+		}
+		else
+		{
+			var_dump($user->my_team());
+		}
+		?>
 		<a href="my_team.php">Manage my team</a>
 	</div>
 	<!--Admin dashboard-->

@@ -1,5 +1,4 @@
 <?php 
-	require_once('functions/setup_DB.php');
 	require_once('classes/User.php');
 
 	$user = get_user();
@@ -23,6 +22,16 @@
 		header ("Location: dashboard.php");
 		exit;
 	}
+
+	//request to add a team
+	if (isset($_POST['add_team_request']))
+	{
+		$result = insert_team($_SESSION['user']['league'], $_POST['coach_id'], $_POST['team_name']);
+		echo $result;
+	}
+
+	//get all teamless coaches to assign to a team
+	$teamless_coaches = get_teamless_coaches($_SESSION['user']['league']);
 ?>
 
 <!DOCTYPE html>
@@ -38,12 +47,19 @@
 	<table>
 		<tr>
 			<th>Team Name</th>
-			<th>Owner</th>
+			<th>Coach</th>
 			<th>Actions</th>
 		</tr>
 		<?php foreach($teams as $team): ?>
 		<?php
-		$coach = get_userinfo($team['Coach']);
+		if ($team['Coach'] != null)
+		{
+			$coach = get_userinfo($team['Coach']);
+		}
+		else
+		{
+			$coach['Username'] = "";
+		}
 		$team_object = new Team($team['Team_name'],
 								$coach['Username'],
 								get_league_name($team['League']),
@@ -62,5 +78,22 @@
 		<?php endforeach; ?>
 	</table>
 
+	<!--Create a team-->
+	<br>
+	Create a team
+	<form method="post">
+		Team name: <input type="text" name="team_name"><br>
+		Coach:
+		<select name="coach_id">
+			<option value="-1"><?php echo "no coach" ?></option>
+			<?php foreach ($teamless_coaches as $coach): ?>
+			<option value=<?php echo $coach['ID']; ?>><?php echo $coach['Username']; ?></option>
+			<?php endforeach; ?>
+		</select>
+		<br>
+		<button type="submit" name="add_team_request">Create Team</button>
+	</form>
+
+	<a href="create_link.php">Need a coach? Invite them here</a>
 </body>
 </html>

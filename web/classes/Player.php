@@ -1,5 +1,4 @@
 <?php
-	require_once("functions/setup_DB.php");
 
 	//Player class
 	class Player 

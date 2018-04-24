@@ -1,5 +1,5 @@
 <?php 
-	require_once('functions/setup_DB.php');
+
 	require_once('functions/link_inviting.php');
 	require_once('classes/User.php');
 	require_once('classes/League.php');
