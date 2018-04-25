@@ -13,6 +13,7 @@ class PlayerStatistic
    function getPlayerId() {
      return $this->playerId;
    }
+   
    function setPlayerId($val) {
      $this->playerId = $val;
    }
