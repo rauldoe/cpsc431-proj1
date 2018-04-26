@@ -1,4 +1,5 @@
 # cpsc431-proj1
+=======
 ## 'andre' branch
 
 ### make sure to check out 'config.php'
@@ -10,3 +11,4 @@ processStatsitcUpdate.php
 home_page.php
 Address.php
 PlayerStatistic.php
+
