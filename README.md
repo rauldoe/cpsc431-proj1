@@ -2,8 +2,8 @@
 =======
 ## 'andre' branch
 
-### make sure to check out 'config.php'
-Define your base url (since our paths after localhost might be different)
+### check your base url
+our base url starts at web/
 
 ### Currently not using:
 processAddressUpdate.php

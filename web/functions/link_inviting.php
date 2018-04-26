@@ -1,6 +1,6 @@
 <?php
 	require_once("functions/setup_DB.php");
-	require_once("../config.php");
+	require_once("functions/config.php");
 
 	//inserts a registration link to the database
 	//used by admin to let people register by sending a link to their email that leads to the registration page
