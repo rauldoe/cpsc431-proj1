@@ -53,7 +53,12 @@
                     // for example:
                     //     <option value="101">Duck, Daisy</option>
 
+                    $len = count($teamList);
 
+                    for ($i=0; $i < $len; ++$i ) {
+                      $item = $teamList[$i];
+                      echo '<option value="' . $item->getTeamID() . '">' . $item->getTeamName() . '</option>';
+                    }
                   ?>
                 </select></td>
               </tr>
@@ -78,6 +83,13 @@
                     //     the value submitted is the unique ID for that player
                     // for example:
                     //     <option value="101">Duck, Daisy</option>
+
+                    $len = count($teamList);
+
+                    for ($i=0; $i < $len; ++$i ) {
+                      $item = $teamList[$i];
+                      echo '<option value="' . $item->getTeamID() . '">' . $item->getTeamName() . '</option>';
+                    }
                   ?>
                 </select></td>
               </tr>
