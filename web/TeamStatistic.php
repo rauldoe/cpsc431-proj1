@@ -59,6 +59,23 @@ class TeamStatistic
      $this->setTeamManager($teamManager);
      $this->setTeamName($teamName);
    }
+
+   public static function getTeamItem($teamID, $teamList) {
+
+      $found = NULL;
+      $len = count($teamList);
+
+      for ($i=0; $i < $len; ++$i ) {
+        $item = $teamList[$i];
+
+        if ($item->getTeamID() == $teamID) {
+          $found = $item;
+          break;
+        }
+      }
+
+      return $found;
+   }
 } // end class PlayerStatistic
 
 ?>
