@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CPSC 431 FINAL PROJECT</title>
+    <title>CPSC 431 HW-3</title>
   </head>
   <body>
-    <h1 style="text-align:center">Final Project.  Cal State Fullerton Basketball Statistics</h1>
+    <h1 style="text-align:center">Cal State Fullerton Basketball Statistics</h1>
 
 <?php
       require_once('Address.php');
@@ -13,7 +13,7 @@
       // Connect to database
       $db = new mysqli('127.0.0.1', 'hw3user', 'password', 'hw3');
       //if (mysql_connect_errno())
-      
+      //sample change
       $query ="
       SELECT roster.ID
       , roster.name_Last
