@@ -1,6 +1,6 @@
 -- User: 'user_1'
 -- Password: 'password'
-
+--test
 -- 1
 DROP DATABASE IF EXISTS final_project;
 
