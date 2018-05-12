@@ -70,6 +70,7 @@
 <body>
 
 	<h4>Create Registration Link</h4>
+	<a href="dashboard.php">back to dashboard</a>
 
 	<!--For admins, pick if want to invite league owner or coach-->
 	<?php if (!isset($_POST['pick_user_type'])): ?>

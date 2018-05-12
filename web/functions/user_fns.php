@@ -208,4 +208,80 @@
 		$db->close();
 	}
 
+	//change the password of the user with this user id
+	function change_pass($user_id, $new_password)
+	{
+		//setup variables
+		$user_table = USER_TABLE;
+		$db = db_connect();
+
+		//hash it
+		$hashed_pass = password_hash($new_password, PASSWORD_DEFAULT);
+		
+		//"find user and update their password" query
+		$query = "UPDATE $user_table
+					SET Password = '$hashed_pass'
+					WHERE ID = $user_id";
+
+		//find user and update their password
+		if (!$db->query($query)) 
+		{
+			return "Query to change password failed - try again later";
+		}
+
+		//successful
+		$db->close();
+		return true;
+	}
+
+	//change the password of the user with this user email
+	function change_pass_by_email($user_email, $new_password)
+	{
+		//setup variables
+		$user_table = USER_TABLE;
+		$db = db_connect();
+
+		//hash it
+		$hashed_pass = password_hash($new_password, PASSWORD_DEFAULT);
+		
+		//"find user and update their password" query
+		$query = "UPDATE $user_table
+					SET Password = '$hashed_pass'
+					WHERE Email = '$user_email'";
+
+		$query_result = $db->query($query);
+
+		if ($db->affected_rows == 0)
+		{
+			echo "Email not found";
+			return false;
+		}
+
+		//find user and update their password
+		if (!$query_result) 
+		{
+			var_dump("Query to change password failed - try again later");
+			return false;
+		}
+
+		//successful
+		$db->close();
+		return true;
+	}
+
+	//generate unique password for forgot password
+	function generate_random_pass()
+	{
+		$result_password = "";
+		$password_length = 10;
+		$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+
+		for ($i = 0; $i < $password_length; $i++)
+		{
+			$random_index = rand(0, strlen($alphabet) - 1);
+			$result_password .= $alphabet[$random_index];
+		}
+	
+		return $result_password;
+	}
 ?>

@@ -137,8 +137,10 @@ VALUES
 	#League2
 	(5, "test4@test.com", "league_owner2", "$2y$10$fUH6Da3X35Vm8bVSDzGeSO2hYNUFdbNYitZjz1Vfv07qIOsQG3HQa", 1, 2),
 	(6, "test5@test.com", "tim", "$2y$10$g8JniU13rqlszZWvooOYH.BXsuKCJC2aVfz782UaEJgxcPuD7Ho/G", 2, 2),
-	(7, "test6@test.com", "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2, 2);
+	(7, "test6@test.com", "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2, 2),
 
+	#For testing 'forgot password'
+	(8, "andreappstuff@gmail.com", "andre", "$2y$10$50BOyaN8CoPrYyp8EP8KEO86V3I0f9ZDepeJcUPOgTM0UU9lnJzPm", 0, null);
 
 -- Leagues, "League1" is owned by "leage_owner1"
 INSERT INTO League(ID, League_owner, League_name)

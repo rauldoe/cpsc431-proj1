@@ -46,6 +46,7 @@
 		<button type="submit" name="login">Login</button>
 	</form>
 	<br>
-	Don't have an account? email us at 'fake_email@gmail.com' to request for one
+	Don't have an account? email us at 'fake_email@gmail.com' to request for one<br>
+	<a href="forgot_password.php">forgot your password?</a>
 </body>
 </html>
