@@ -124,7 +124,7 @@ CREATE TABLE Games
 );
 
 -- Stats
-CREATE TABLE Stats 
+CREATE TABLE Statistics 
 (
     ID 				int(10) 	unsigned	not null AUTO_INCREMENT,
     GameID 			int(10)  	unsigned	not null,
@@ -249,7 +249,7 @@ INSERT INTO Games(ID, HomeTeamID, AwayTeamID, StartDatetime, Duration)
         ;
 
 -- Stats
-INSERT Stats(ID, GameID, TeamID, PlayerID, Points, Rebounds, Assists, StartDatetime, TimeOnCourt)
+INSERT Statistics(ID, GameID, TeamID, PlayerID, Points, Rebounds, Assists, StartDatetime, TimeOnCourt)
     VALUES
         (1 , 1, 1, 1, 34, 2, 3, '2018-05-11 00:00:00', 23),
         (2 , 1, 1, 2, 11, 1, 9, '2018-05-11 00:00:10', 08),
