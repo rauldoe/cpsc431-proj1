@@ -1,21 +1,32 @@
-use hw3;
+use final_project;
 
-    /*PlayingTimeMin tinyint(2) unsigned DEFAULT 0,
-    PlayTimeSec tinyint(2) unsigned DEFAULT 0,
-    Points tinyint(3) unsigned DEFAULT 0,
-    Assists tinyint(3) unsigned DEFAULT 0,
-    Rebounds tinyint(3) unsigned DEFAULT 0,*/
-SELECT roster.ID, roster.name_Last, roster.name_First
-	, count(stat.Player) as games_played 
-	-- , coalesce((coalesce(stat.PlayingTimeMin,0)+coalesce(stat.PlayTimeSec,0)), 0) as time_on_court
-  	, avg(coalesce(stat.TotalTime/60,0)) as time_on_court
-	, avg(coalesce(stat.Points,0)) as points_scored
-	, avg(coalesce(stat.Assists,0)) as number_of_assists
-	, avg(coalesce(stat.Rebounds,0)) as number_of_rebounds
+SET @gameId = 1;
+
+SELECT 
+    s.GameID
+  , s.TeamID
+  , s.PlayerID
+  , MIN(s.CoachID)                  as CoachID
+
+  , MIN(t.TeamName)                 as TeamName
+  , MIN(cu.LastName)                as CoachLastName
+  , MIN(cu.FirstName)                as CoachFirstName
+  , u.LastName
+  , u.FirstName
+  
+	, SUM(COALESCE(s.Points, 0))      as Points
+	, SUM(COALESCE(s.Rebounds, 0))    as Rebounds
+	, SUM(COALESCE(s.Assists, 0))     as Assists
+  , SUM(COALESCE(s.TimeOnCourt, 0)) as TimeOnCourt
     
-  FROM teamroster as roster LEFT JOIN statistics as stat ON (roster.ID=stat.Player)
-  GROUP BY roster.ID
-  
-  ;
-  
--- SELECT * FROM statistics
+  FROM Statistics as s 
+    INNER JOIN Games as g   on s.GameID   = g.ID
+    INNER JOIN Teams as t   on s.TeamID   = t.ID
+    INNER JOIN Players as p on s.PlayerID = p.ID
+    INNER JOIN Users as u   on p.UserID   = u.ID
+    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+    WHERE s.GameID = @gameId
+    GROUP BY s.GameID, s.TeamID, s.PlayerID
+    ORDER BY s.GameID, s.TeamID, s.PlayerID
+;
