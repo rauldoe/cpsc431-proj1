@@ -1,5 +1,6 @@
 <?php
-	require_once('functions/link_inviting.php');
+	//require_once('functions/link_inviting.php');
+	require_once('functions/user_fns.php');
 	require_once('classes/User.php');
 	require_once('classes/League.php');
 

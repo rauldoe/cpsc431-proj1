@@ -3,6 +3,7 @@
 	//require_once("functions/link_inviting.php");
 	require_once("classes/Team.php");
 	require_once("classes/League.php");
+	require_once('functions/user_fns.php');
 	require_once("classes/User.php");
 	session_start();
 
@@ -16,7 +17,7 @@
 		$db = db_connect();
 
 		// find
-		$query = "SELECT Email, Username FROM $user_table WHERE ID = $user_id";
+		$query = "CALL getUser($user_id);";
 
 		if (!$result = $db->query($query))
 		{
@@ -41,23 +42,24 @@
 		$db = db_connect();
 
 		// check if username
-		$same_names = $db->query("select ID from user where username='".$username."'");
+		$same_names = $db->query("CALL getUserByUsername('$username');");
 		if ($same_names->num_rows > 0) 
 		{
 			return "Username is taken";
 		}
 
+		//TODO: to work on
 		// check email is unique
-		$same_email = $db->query("select ID from user where email='".$email."'");
+		/*$same_email = $db->query("select ID from user where email='".$email."'");
 		if ($same_email->num_rows > 0)
 		{
 			return "Email is taken";
-		}
+		}*/
 
 		//hash password and insert to database
 		$hashed = password_hash($password, PASSWORD_DEFAULT);
-		$query = "INSERT INTO $user_table (Email, Username, Password, User_type, League) 
-					VALUES ('$email', '$username', '$hashed', '$type', '$league')";
+		$query = "INSERT INTO $user_table (Email, Username, Password) 
+					VALUES ('$email', '$username', '$hashed', '$type')";
 
 		if (!$result = $db->query($query))
 		{
@@ -90,7 +92,7 @@
 		$db = db_connect();
 
 		//check username existance
-		$same_names = $db->query("select * from Users where username='".$username."'");
+		$same_names = $db->query("CALL getUserByUsername('".$username."');");
 		if ($same_names->num_rows == 0)
 		{
 			return "username not found";
@@ -107,7 +109,7 @@
 
 		//if reached this point, successful login
 		//update session data and refresh/redirect
-		updateUser($result);
+		updateUserSession($result);
 		header ("Location: dashboard.php");
 		exit;
 	}
@@ -143,20 +145,11 @@
 			$db->close();
 
 			//update session data
-			updateUser($result);
+			updateUserSession($result);
 
 			return true;
 		}
 		return false;
-	}
-
- 	function updateUser($result)
-	{
-		$_SESSION['user']['ID'] = $result['ID'];
-		$_SESSION['user']['Username'] = $result['Username'];
-		$_SESSION['user']['AddressID'] = $result['AddressID'];
-		$_SESSION['user']['RoleID'] = $result['RoleID'];
-		$_SESSION['user']['obj'] = $result;
 	}
 
 	//return null if no user logged in, return the user if they are
@@ -164,7 +157,7 @@
 	{
 		if (is_logged_in())
 		{
-			$logged_in_user = new User($_SESSION['user']['username'], $_SESSION['user']['type']);
+			$logged_in_user = User::createFromSession();
 
 			return $logged_in_user;
 		}
@@ -287,4 +280,14 @@
 	
 		return $result_password;
 	}
+
+	function updateUserSession($result)
+	{
+		$_SESSION['user']['ID'] = $result['ID'];
+		$_SESSION['user']['Username'] = $result['Username'];
+		$_SESSION['user']['AddressID'] = $result['AddressID'];
+		$_SESSION['user']['RoleID'] = $result['RoleID'];
+		$_SESSION['user']['obj'] = $result;
+	}
+
 ?>

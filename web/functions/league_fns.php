@@ -68,7 +68,7 @@
 		//find league
 		$query = "SELECT * 
 					FROM $league_table 
-					WHERE League_owner = $user_id";
+					WHERE ManagerID = $user_id";
 
 		if (!$result = $db->query($query))
 		{

@@ -1,18 +1,16 @@
 <?php
-	require_once("functions/user_fns.php");
 
 	//User class
 	class User 
 	{
+		private $id;
 		private $username;
 		private $type;
 		private $team = null;
 		private $league = null;
 
-		function __construct($username, $type)
+		function __construct()
 		{
-	  		$this->username = $username;
-	  		$this->type = $type;
 		}
 
 		//-----getters / setters------
@@ -99,6 +97,19 @@
 			}
 
 			return $this;	
+		}
+
+		//Methods
+
+		public static function createFromSession()
+		{
+			$instance = new self();
+			$instance->id = $_SESSION['user']['ID'];
+			$instance->username = $_SESSION['user']['Username'];
+			$instance->type = $_SESSION['user']['RoleID'];
+			$instance->obj = $_SESSION['user']['obj'];
+
+			return $instance;
 		}
 	}
 ?>

@@ -1,5 +1,5 @@
 <?php
-	require_once('classes/User.php');
+	require_once('functions/user_fns.php');
 
 	//if log out request found
 	if (isset($_POST['logout']))

@@ -1,4 +1,5 @@
 <?php
+	require_once('functions/user_fns.php');
 	require_once('classes/User.php');
 
 	$user = get_user();
@@ -16,9 +17,14 @@
 		$league = get_league($_SESSION['user']['ID']);
 
 		//put it in an object
-		$my_league = new League($league['League_name'], 
-								$league['League_owner'], 
+		$my_league = new League($league['LeagueName'], 
+								$league['ManagerID'], 
 								get_teams($league['ID']));
+
+		//work on teams
+		/*$my_league = new League($league['LeagueName'], 
+								$league['ManagerID'], 
+								get_teams($league['ID']));*/
 
 		$user->my_league($my_league);
 	}
