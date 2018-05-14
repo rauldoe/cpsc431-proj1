@@ -1,6 +1,6 @@
 <?php
 	require_once("functions/setup_DB.php");
-	require_once("functions/link_inviting.php");
+	//require_once("functions/link_inviting.php");
 	require_once("classes/Team.php");
 	require_once("classes/League.php");
 	require_once("classes/User.php");
@@ -16,7 +16,7 @@
 		$db = db_connect();
 
 		// find
-		$query = "SELECT Email, Username, User_type, League FROM $user_table WHERE ID = $user_id";
+		$query = "SELECT Email, Username FROM $user_table WHERE ID = $user_id";
 
 		if (!$result = $db->query($query))
 		{
@@ -90,7 +90,7 @@
 		$db = db_connect();
 
 		//check username existance
-		$same_names = $db->query("select * from user where username='".$username."'");
+		$same_names = $db->query("select * from Users where username='".$username."'");
 		if ($same_names->num_rows == 0)
 		{
 			return "username not found";
@@ -107,10 +107,7 @@
 
 		//if reached this point, successful login
 		//update session data and refresh/redirect
-		$_SESSION['user']['ID'] = $result['ID'];
-		$_SESSION['user']['username'] = $result['Username'];
-		$_SESSION['user']['type'] = $result['User_type'];
-		$_SESSION['user']['league'] = $result['League'];
+		updateUser($result);
 		header ("Location: dashboard.php");
 		exit;
 	}
@@ -137,7 +134,7 @@
 			$id = $_SESSION['user']['ID'];
 
 			//update the data
-			$same_names = $db->query("select * from user where ID = $id");
+			$same_names = $db->query("CALL getUser($id);");
 			if ($same_names->num_rows == 0)
 			{
 				return "user not found";
@@ -146,14 +143,20 @@
 			$db->close();
 
 			//update session data
-			$_SESSION['user']['ID'] = $result['ID'];
-			$_SESSION['user']['username'] = $result['Username'];
-			$_SESSION['user']['type'] = $result['User_type'];
-			$_SESSION['user']['league'] = $result['League'];
+			updateUser($result);
 
 			return true;
 		}
 		return false;
+	}
+
+ 	function updateUser($result)
+	{
+		$_SESSION['user']['ID'] = $result['ID'];
+		$_SESSION['user']['Username'] = $result['Username'];
+		$_SESSION['user']['AddressID'] = $result['AddressID'];
+		$_SESSION['user']['RoleID'] = $result['RoleID'];
+		$_SESSION['user']['obj'] = $result;
 	}
 
 	//return null if no user logged in, return the user if they are

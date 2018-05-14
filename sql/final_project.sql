@@ -171,30 +171,30 @@ INSERT INTO Roles(ID, RoleName)
         ;
 
 -- Users
--- Password uses sha512: hash('sha512', 'manager1');, length=128
+-- Password uses password_hash("password", PASSWORD_DEFAULT)
 INSERT INTO Users(ID, Username, Password, Email, FirstName, LastName, AddressID)
     VALUES
-        (01,    'manager1'  , '92a881051a0d26ba0fe4a65cb1039c10e18718c68591efb6afbf883b672a328bc8ba8c13fdaa90eedc018c280782cbbd2a842acbd9a5f3b8965012a1ba489234', 'manager1@yahoo.com'  , 'Joemanager1', 'Smith1'   , 1),
-        (02,    'manager2'  , 'dbc55b655de79523a9f1817a9c26624092d92d6f42c235dd9b743f349adc4b832e1bed4b50edb634e52d3a979324b87edb07308f93b6e40a77e89f7a0faa59cc', 'manager2@yahoo.com'  , 'Joemanager2', 'Smith3'   , 2),
-        (03,    'manager3'  , '92b1bab898abf8da2aef212697397329470adf9f65abd21e4fb84537994b8e8c516644b18245eae3f08ed40af3a93e53c0b901cfa4701b97da78c0a77d9434ea', 'manager3@yahoo.com'  , 'Joemanager3', 'Smith3'   , 3),
+        (01,    'manager1'  , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'manager1@yahoo.com'  , 'Joemanager1', 'Smith1'   , 1),
+        (02,    'manager2'  , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'manager2@yahoo.com'  , 'Joemanager2', 'Smith3'   , 2),
+        (03,    'manager3'  , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'manager3@yahoo.com'  , 'Joemanager3', 'Smith3'   , 3),
 
-        (04,    'coach1'    , 'a6f95898a7b957946efe1c0b3158111580fcec376959fe5740401cb254121acc49450af852bbffec146f47b37a2ae94494843cb0b74f67ccf3bb58a1884c11d8', 'coach1@gmail.com'    , 'Stevecoach1', 'Anders1'  , 4),
-        (05,    'coach2'    , '8db47b20f72a31c9736a231950750ac6d4e94a0951f91c29944d3cc3d430fb694fa506783e2733ee9675ad5d03e40b76fc43168294c4628158fdfa1a278a86cc', 'coach2@gmail.com'    , 'Stevecoach2', 'Anders2'  , 5),
-        (06,    'coach3'    , '2feaa1650fd0dd82a6bf7024f23bab21948e110eb0245d3574682c1a6a146f791771f40c9f845b476a9e876f2ea0ad40038a4fdf6a4442aed151c10cdb7fc771', 'coach3@gmail.com'    , 'Stevecoach3', 'Anders3'  , 6),
+        (04,    'coach1'    , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'coach1@gmail.com'    , 'Stevecoach1', 'Anders1'  , 4),
+        (05,    'coach2'    , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'coach2@gmail.com'    , 'Stevecoach2', 'Anders2'  , 5),
+        (06,    'coach3'    , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'coach3@gmail.com'    , 'Stevecoach3', 'Anders3'  , 6),
         
-        (07,    'observer1' , 'f93a48eb601fcf44b7c2fca8ba9a209a57a5387e50849b0f5bb914b7279048e2957a5b0e9ad12e73b00b07d4d844f1e7b41e3ac12da5b8a826d12dc0d745b910', 'observer1@msn.com'   , 'Bobobserver1', 'West1'   , 7),
-        (08,    'observer2' , '22227a1ebf717f456db10e5a041808bac98ea95ffb50c832659226da06f8cd84653ee7e4a9d4ce1bd1d03349a0d189fa465bb8f5b2c5c1a7a81fedff5d478ac3', 'observer2@msn.com'   , 'Bobobserver2', 'West2'   , 8),
-        (09,    'observer3' , '28161f3601eb4f25b20ba91ec8d847e79efcac21f1dfd34ce19870aeb2b10eae026b98aaae1c1fa19d23a722cee67d39e035eeb58c03870ead8ee003ea3174a8', 'observer3@msn.com'   , 'Bobobserver3', 'West3'   , 9),
+        (07,    'observer1' , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'observer1@msn.com'   , 'Bobobserver1', 'West1'   , 7),
+        (08,    'observer2' , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'observer2@msn.com'   , 'Bobobserver2', 'West2'   , 8),
+        (09,    'observer3' , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'observer3@msn.com'   , 'Bobobserver3', 'West3'   , 9),
 
-        (10,    'player1'   , '264a66d687bd8fb4a90aaee4694dc10a211bc4418eced1c62aafe6bfe5036ce74c72cc5442488fcdfc1259ecaa3fa266efc9ddcb73770730546bd752e66e68c0', 'player1@live.com'    , 'Davidplayer1', 'Unger1'   , 1),
-        (11,    'player2'   , '9e53e2e97bcfd9173650adf0fe30ffdb14ad0389b20dc3e440579fbfe43e3567703ca0c596be7f76390649d1787d7405ade03d79434c16ac1667bdfa95c57766', 'player2@live.com'    , 'Davidplayer2', 'Unger2'   , 2),
-        (12,    'player3'   , '1c3d000d69df3ffce7364df386dc7ad1e6ee225b44741d6e5bc94eff63495ebe2626d490ca7ce7620524ac7ee9ba59b5b37b30ed529389a7a3781fea4a16d272', 'player3@live.com'    , 'Davidplayer3', 'Unger3'   , 3),
-        (13,    'player4'   , '42e45b900eeffa07239b82b921e956fb6e351581467756f47914da559c1ad960734b6d182601ca6bf79ef2044306ad50a700f7f77a1d9e54bc99712f0d7ca5fa', 'player4@live.com'    , 'Davidplayer4', 'Unger4'   , 4),
-        (14,    'player5'   , '178f7e320de1c04529312942f3426921518da7708831af468653699a3f21cbd4c1fef409818dd3efc01cfd83142f300da1665dddbbb0854170befd0cf14db154', 'player5@live.com'    , 'Davidplayer5', 'Unger5'   , 5),
-        (15,    'player6'   , 'b338f6baf687521ba582726da64d505bc4bf1928c7f702a60ea3c88607f648c3edb2d7a3bff5d200eda045dd96d6fafc47e042089be96f5365b1fe08e0df302f', 'player6@live.com'    , 'Davidplayer6', 'Unger6'   , 6),
-        (16,    'player7'   , '151279821a009200f12dc3edb8ce68ad7906b57059d583402f5d5d95a9a25d29402d5e6741f7404c39d68a94ae2348a447eeba95d787d1f5059ebe83aa982713', 'player7@live.com'    , 'Davidplayer7', 'Unger7'   , 7),
-        (17,    'player8'   , '1ad8358e3f63cd1b608190dc3afe963dc1e641634860e04b6e475d5a5cda51211722a39a37e377235f5cf8bfd122706fd2153fd942146ff3dbc74ead45953148', 'player8@live.com'    , 'Davidplayer8', 'Unger8'   , 8),
-        (18,    'player9'   , 'c9b8f2b67fc971743e05496dd98416e5aedf2f4da1f5d2fda0044078ac22f413449c40823a5e16e84e462e5d66159190ba323b4643838e08c071a39ab4a976ba', 'player9@live.com'    , 'Davidplayer9', 'Unger9'   , 9)
+        (10,    'player1'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player1@live.com'    , 'Davidplayer1', 'Unger1'   , 1),
+        (11,    'player2'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player2@live.com'    , 'Davidplayer2', 'Unger2'   , 2),
+        (12,    'player3'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player3@live.com'    , 'Davidplayer3', 'Unger3'   , 3),
+        (13,    'player4'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player4@live.com'    , 'Davidplayer4', 'Unger4'   , 4),
+        (14,    'player5'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player5@live.com'    , 'Davidplayer5', 'Unger5'   , 5),
+        (15,    'player6'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player6@live.com'    , 'Davidplayer6', 'Unger6'   , 6),
+        (16,    'player7'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player7@live.com'    , 'Davidplayer7', 'Unger7'   , 7),
+        (17,    'player8'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player8@live.com'    , 'Davidplayer8', 'Unger8'   , 8),
+        (18,    'player9'   , '$2y$10$ExYLgQIDiw6o13M3rZ9rGubkWLsTbdykRQOYkmlWjDOwD/djkGKki', 'player9@live.com'    , 'Davidplayer9', 'Unger9'   , 9)
         ;
 
 -- Leagues
@@ -274,4 +274,448 @@ INSERT Statistics(ID, GameID, TeamID, CoachID, PlayerID, Points, Rebounds, Assis
         (18, 3, 1, 4, 3, 24, 8, 0, '2018-05-13 00:00:20', 19),
         (19, 3, 1, 4, 3, 24, 8, 1, '2018-05-13 00:00:50', 19)
         ;
+
+
+
+-- CALL getStatByGameAndPlayer();
+
+DROP PROCEDURE IF EXISTS getStatByGameAndPlayer;
+
+DELIMITER //
+    CREATE PROCEDURE getStatByGameAndPlayer
+        ()
+    BEGIN
+
+        -- Calculate Rank by Player within Team and Game
+        SET @key1 = null;
+        SET @key2 = null;
+        SET @rankPerCategory = 1;
+        SET @valueToRank = null;
+
+		DROP TABLE IF EXISTS `tempRankByPlayerWithinGameAndTeam`;
+        CREATE TABLE IF NOT EXISTS tempRankByPlayerWithinGameAndTeam
+            SELECT 
+                GameID
+                , TeamID
+                , PlayerID
+                
+                , Rank
+
+            FROM
+            (
+                SELECT  
+                    GameID
+                    , TeamID
+                    , PlayerID
+
+                    , @rankPerCategory := IF(@key1=GameID AND @key2=TeamID, IF(@valueToRank=TotalPoints, @rankPerCategory, @rankPerCategory+1), 1) as Rank
+                    , @key1 := GameID
+                    , @key2 := TeamID
+                    , @valueToRank := TotalPoints     
+            FROM
+                (
+                    SELECT  
+                        GameID
+                        , TeamID
+                        , PlayerID
+                        
+                        , SUM(Points) as TotalPoints
+                        
+                        FROM Statistics
+                            GROUP BY GameID, TeamID, PlayerID
+                            ORDER BY GameID, TeamID, TotalPoints DESC
+                ) as a
+            ) as b 
+                ORDER BY GameID, TeamID, Rank, PlayerID
+            ;
+
+		DROP TABLE IF EXISTS `tempGameStat_getStatByGameAndPlayer`;
+        CREATE TABLE IF NOT EXISTS tempGameStat_getStatByGameAndPlayer
+            SELECT 
+                  s.GameID 
+                , s.TeamID
+                , s.PlayerID
+                , MIN(s.CoachID)                as CoachID
+
+                , MIN(t.TeamName)               as TeamName
+                , MIN(cu.LastName)              as CoachLastName
+                , MIN(cu.FirstName)             as CoachFirstName
+                , u.LastName                    as PlayerLastName
+                , u.FirstName                   as PlayerFirstName
+            
+                , SUM(COALESCE(s.Points, 0))    as Points
+                , SUM(COALESCE(s.Rebounds, 0))  as Rebounds
+                , SUM(COALESCE(s.Assists, 0))   as Assists
+                , SUM(COALESCE(s.Duration, 0))  as Duration
+                    
+                FROM Statistics as s 
+                    INNER JOIN Games as g   on s.GameID   = g.ID
+                    INNER JOIN Teams as t   on s.TeamID   = t.ID
+                    INNER JOIN Players as p on s.PlayerID = p.ID
+                    INNER JOIN Users as u   on p.UserID   = u.ID
+                    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+                    GROUP BY s.GameID, s.TeamID, s.PlayerID
+                    ORDER BY s.GameID, s.TeamID, Points DESC, Rebounds DESC, Assists DESC, Duration DESC, s.PlayerID
+            ;
+
+        SELECT a.*, b.Rank
+            FROM tempGameStat_getStatByGameAndPlayer a
+                INNER JOIN tempRankByPlayerWithinGameAndTeam b ON
+                        a.GameID    = b.GameID
+                    AND a.TeamID    = b.TeamID
+                    AND a.PlayerID  = b.PlayerID
+        ;
+
+        DROP TABLE tempGameStat_getStatByGameAndPlayer;
+        DROP TABLE tempRankByPlayerWithinGameAndTeam;
+    END //
+DELIMITER ;
+
+
+-- CALL getStatByGameAndTeam();
+
+DROP PROCEDURE IF EXISTS getStatByGameAndTeam;
+
+DELIMITER //
+    CREATE PROCEDURE getStatByGameAndTeam
+        ()
+    BEGIN
+    
+		DROP TABLE IF EXISTS `tempGameStat_getStatByGameAndTeam`;
+        CREATE TABLE IF NOT EXISTS tempGameStat_getStatByGameAndTeam
+            SELECT 
+                  s.GameID
+                , s.TeamID
+                , MIN(s.CoachID)                as CoachID
+
+                , MIN(g.StartDateTime)          as StartDateTime
+                , MIN(g.Duration)               as Duration
+                , MIN(t.TeamName)               as TeamName
+                , MIN(cu.LastName)              as CoachLastName
+                , MIN(cu.FirstName)             as CoachFirstName
+            
+                , SUM(COALESCE(s.Points, 0))    as Points
+                , SUM(COALESCE(s.Rebounds, 0))  as Rebounds
+                , SUM(COALESCE(s.Assists, 0))   as Assists
+                
+                , 0 as Winner
+                FROM Statistics as s 
+                    INNER JOIN Games as g   on s.GameID   = g.ID
+                    INNER JOIN Teams as t   on s.TeamID   = t.ID
+                    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+                    GROUP BY s.GameID, s.TeamID
+                    ORDER BY s.GameID, s.TeamID
+        ;
+                
+        UPDATE tempGameStat_getStatByGameAndTeam as a
+            INNER JOIN 
+                (SELECT c.GameID, c.TeamID, c.Points
+                    FROM tempGameStat_getStatByGameAndTeam c
+                    LEFT JOIN tempGameStat_getStatByGameAndTeam d ON c.GameID = d.GameID AND c.Points < d.Points
+                    WHERE d.GameID IS NULL
+                ) as b
+            ON a.GameID = b.GameID AND a.TeamID = b.TeamID
+            SET a.Winner = 1;
+
+        SELECT * FROM tempGameStat_getStatByGameAndTeam;
+
+        DROP TABLE tempGameStat_getStatByGameAndTeam;
+    END //
+DELIMITER ;
+
+
+-- CALL getStatByPlayer();
+
+DROP PROCEDURE IF EXISTS getStatByPlayer;
+
+DELIMITER //
+    CREATE PROCEDURE getStatByPlayer
+        ()
+    BEGIN
+        SET @rank = 0;
+
+        SELECT
+              a.PlayerID
+
+            , (@rank := @rank + 1)          as Rank
+            , a.PlayerLastName
+            , a.PlayerFirstName
+        
+            , a.AveragePoints
+            , a.AverageRebounds
+            , a.AverageAssists
+            , a.AverageDuration
+
+            , a.TotalPoints
+            , a.TotalRebounds
+            , a.TotalAssists
+            , a.TotalDuration
+            
+            FROM
+                (SELECT 
+                    s.PlayerID
+                        
+                    , u.LastName                    as PlayerLastName
+                    , u.FirstName                   as PlayerFirstName
+                
+                    , AVG(COALESCE(s.Points, 0))    as AveragePoints
+                    , AVG(COALESCE(s.Rebounds, 0))  as AverageRebounds
+                    , AVG(COALESCE(s.Assists, 0))   as AverageAssists
+                    , AVG(COALESCE(s.Duration, 0))  as AverageDuration
+
+                    , SUM(COALESCE(s.Points, 0))    as TotalPoints
+                    , SUM(COALESCE(s.Rebounds, 0))  as TotalRebounds
+                    , SUM(COALESCE(s.Assists, 0))   as TotalAssists
+                    , SUM(COALESCE(s.Duration, 0))  as TotalDuration
+                        
+                    FROM Statistics as s 
+                        INNER JOIN Players as p on s.PlayerID = p.ID
+                        INNER JOIN Users as u   on p.UserID   = u.ID
+
+                        GROUP BY s.PlayerID
+                        ORDER BY AveragePoints DESC, AverageRebounds DESC, AverageAssists DESC, AverageDuration DESC
+                ) as a
+                
+                ORDER BY Rank
+        ;
+    END //
+DELIMITER ;
+
+
+-- CALL getStatByTeamAndPlayer();
+
+DROP PROCEDURE IF EXISTS getStatByTeamAndPlayer;
+
+DELIMITER //
+    CREATE PROCEDURE getStatByTeamAndPlayer
+        ()
+    BEGIN
+        SET @key1 = null;
+        SET @key2 = null;
+        SET @rankPerCategory = 1;
+        SET @valueToRank = null;
+
+		DROP TABLE IF EXISTS `tempRankByPlayerWithinTeam`;
+        CREATE TABLE IF NOT EXISTS tempRankByPlayerWithinTeam
+            SELECT
+                TeamID
+                , PlayerID
+                
+                , Rank
+                , TotalPoints
+                , TotalRebounds
+                , TotalAssists
+                , TotalDuration
+
+            FROM
+            (
+                SELECT  
+                    TeamID
+                    , PlayerID
+                    , TotalPoints
+                    , TotalRebounds
+                    , TotalAssists
+                    , TotalDuration
+                    , @rankPerCategory := IF(@key1=TeamID, IF(@valueToRank=TotalPoints, @rankPerCategory, @rankPerCategory+1), 1) as Rank
+                    , @key1 := TeamID
+                    , @valueToRank := TotalPoints     
+            FROM
+                (
+                    SELECT  
+                        TeamID
+                        , PlayerID
+                        
+                        , SUM(Points) as TotalPoints
+                        , SUM(Rebounds) as TotalRebounds
+                        , SUM(Assists) as TotalAssists
+                        , SUM(Duration) as TotalDuration
+                        
+                        FROM Statistics
+                            GROUP BY TeamID, PlayerID
+                            ORDER BY TeamID, TotalPoints DESC
+                ) as a
+            ) as b 
+                ORDER BY TeamID, Rank, PlayerID
+            ;
+
+		DROP TABLE IF EXISTS `tempGameStat_getStatByTeamAndPlayer`;
+        CREATE TABLE IF NOT EXISTS tempGameStat_getStatByTeamAndPlayer
+            SELECT 
+                s.TeamID
+                , s.PlayerID
+                , MIN(s.CoachID)                as CoachID
+
+                , MIN(t.TeamName)               as TeamName
+                , MIN(cu.LastName)              as CoachLastName
+                , MIN(cu.FirstName)             as CoachFirstName
+                , u.LastName                    as PlayerLastName
+                , u.FirstName                   as PlayerFirstName
+            
+                , AVG(COALESCE(s.Points, 0))    as AveragePoints
+                , AVG(COALESCE(s.Rebounds, 0))  as AverageRebounds
+                , AVG(COALESCE(s.Assists, 0))   as AverageAssists
+                , AVG(COALESCE(s.Duration, 0))  as AverageDuration
+
+                , SUM(COALESCE(s.Points, 0))    as TotalPoints
+                , SUM(COALESCE(s.Rebounds, 0))  as TotalRebounds
+                , SUM(COALESCE(s.Assists, 0))   as TotalAssists
+                , SUM(COALESCE(s.Duration, 0))  as TotalDuration
+                    
+                FROM Statistics as s 
+                    INNER JOIN Teams as t   on s.TeamID   = t.ID
+                    INNER JOIN Players as p on s.PlayerID = p.ID
+                    INNER JOIN Users as u   on p.UserID   = u.ID
+                    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+                    GROUP BY s.TeamID, s.PlayerID
+                    ORDER BY s.TeamID, AveragePoints DESC, AverageRebounds DESC, AverageAssists DESC, AverageDuration DESC, s.PlayerID
+            ;
+
+        SELECT a.*, b.Rank
+            FROM tempGameStat_getStatByTeamAndPlayer a
+                INNER JOIN tempRankByPlayerWithinTeam b ON
+                        a.TeamID    = b.TeamID
+                    AND a.PlayerID  = b.PlayerID
+        ;
+
+        DROP TABLE tempGameStat_getStatByTeamAndPlayer;
+        DROP TABLE tempRankByPlayerWithinTeam;
+    END //
+DELIMITER ;
+
+
+-- CALL getStatByTeam();
+
+DROP PROCEDURE IF EXISTS getStatByTeam;
+
+DELIMITER //
+    CREATE PROCEDURE getStatByTeam
+        ()
+    BEGIN
+    
+		DROP TABLE IF EXISTS `tempGameStat_getStatByTeam`;
+        CREATE TABLE IF NOT EXISTS tempGameStat_getStatByTeam
+            SELECT 
+                  s.GameID
+                , s.TeamID
+                , MIN(s.CoachID)                as CoachID
+
+                , MIN(g.StartDateTime)          as StartDateTime
+                , MIN(g.Duration)               as Duration
+                , MIN(t.TeamName)               as TeamName
+                , MIN(cu.LastName)              as CoachLastName
+                , MIN(cu.FirstName)             as CoachFirstName
+            
+                , SUM(COALESCE(s.Points, 0))    as Points
+                , SUM(COALESCE(s.Rebounds, 0))  as Rebounds
+                , SUM(COALESCE(s.Assists, 0))   as Assists
+                
+                , 0 as Winner
+                FROM Statistics as s 
+                    INNER JOIN Games as g   on s.GameID   = g.ID
+                    INNER JOIN Teams as t   on s.TeamID   = t.ID
+                    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+                    GROUP BY s.GameID, s.TeamID
+                    ORDER BY s.GameID, s.TeamID
+        ;
+                
+    UPDATE tempGameStat_getStatByTeam as a
+        INNER JOIN 
+            (SELECT c.GameID, c.TeamID, c.Points
+                FROM tempGameStat_getStatByTeam c
+                LEFT JOIN tempGameStat_getStatByTeam d ON c.GameID = d.GameID AND c.Points < d.Points
+                WHERE d.GameID IS NULL
+            ) as b
+        ON a.GameID = b.GameID AND a.TeamID = b.TeamID
+        SET a.Winner = 1;
+
+		DROP TABLE IF EXISTS `tempTeamRank`;
+        CREATE TABLE IF NOT EXISTS tempTeamRank
+        (
+            TeamID 		int unsigned,
+            Rank        tinyint unsigned,
+            GamesWon    tinyint unsigned,
+            GamesLost	tinyint unsigned
+        );
+
+        INSERT INTO tempTeamRank(TeamID, Rank, GamesWon, GamesLost)
+            SELECT t.ID, 0, 0, 0
+                FROM Teams as t;
+
+        SET @gameMode = 0;
+
+        UPDATE tempTeamRank as a
+            INNER JOIN 
+                (SELECT TeamID, COUNT(TeamID) as GamesLost FROM tempGameStat_getStatByTeam 
+                    WHERE Winner = @gameMode
+                    GROUP BY TeamID
+                ) as b ON a.TeamID = b.TeamID
+                    
+            SET a.GamesLost = b.GamesLost;
+
+        SET @gameMode = 1;
+
+        UPDATE tempTeamRank as a
+            INNER JOIN 
+                (SELECT TeamID, COUNT(TeamID) as GamesWon FROM tempGameStat_getStatByTeam 
+                    WHERE Winner = @gameMode
+                    GROUP BY TeamID
+                ) as b ON a.TeamID = b.TeamID
+                    
+            SET a.GamesWon = b.GamesWon;
+
+        SET @rank = 0;
+                    
+        UPDATE tempTeamRank as a
+            INNER JOIN 
+                (SELECT TeamID, (@rank := @rank + 1) as RankUpdate, GamesWon, GamesLost FROM tempTeamRank
+                    ORDER BY GamesWon DESC, GamesLost ASC
+                ) as b ON a.TeamID = b.TeamID
+            SET a.Rank = b.RankUpdate
+        ;
+        
+        SELECT 
+            t.ID as TeamID
+            , t.CoachID
+            
+            , r.Rank
+            , t.TeamName
+            , u.LastName	as CoachLastName
+            , u.FirstName	as CoachFirstName
+            , r.GamesWon
+            , r.GamesLost
+            
+            FROM Teams as t
+                INNER JOIN Users as u           ON t.CoachID = u.ID
+                INNER JOIN tempTeamRank as r    ON t.ID = r.TeamID
+                        
+            ORDER BY r.Rank
+        ;
+
+        DROP TABLE tempTeamRank;
+        DROP TABLE tempGameStat_getStatByTeam;
+    END //
+DELIMITER ;
+
+
+-- CALL getUser(1);
+
+DROP PROCEDURE IF EXISTS getUser;
+
+DELIMITER //
+    CREATE PROCEDURE getUser
+        (userId int unsigned)
+    BEGIN
+
+        SELECT u.ID, u.AddressID, ur.RoleID, u.Username, u.Password, u.Email, u.FirstName, u.LastName,  a.Street, a.City, a.StateOrRegion, a.Country, a.ZipCode, r.RoleName
+			FROM Users u
+				INNER JOIN UserRoles ur ON u.ID = ur.UserID
+				INNER JOIN Roles r ON ur.RoleID = r.ID
+				INNER JOIN Addresses a ON u.AddressID = a.ID
+				WHERE u.ID = userId;
+    END //
+DELIMITER ;
 
