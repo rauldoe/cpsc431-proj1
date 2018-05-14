@@ -43,7 +43,7 @@
 <body>
 
 	<h3>Teams in The League: </h3>
-
+	<a href="dashboard.php">back to dashboard</a>
 	<table>
 		<tr>
 			<th>Team Name</th>

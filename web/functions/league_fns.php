@@ -21,7 +21,6 @@
 		$query = "INSERT INTO $league_table (League_name, League_owner)
 					VALUES ('$name', $owner_ID)";
 
-		echo $query;
 		//log them in, else return error message
 		if (!$db->query($query)) 
 		{
@@ -50,7 +49,7 @@
 		//log them in, else return error message
 		if (!$db->query($query)) 
 		{
-			return "Query to insert league failed - try again later";
+			return "Query to insert league owner failed - try again later";
 		}
 
 		//successful
@@ -183,5 +182,63 @@
 		//return the object
 		$db->close();
 		return $league;
+	}
+
+	//get a list of game schedule for a league
+	function get_league_schedule($league_id)
+	{
+		
+		//setup variables
+		$games_table = GAMES_TABLE;
+		$db = db_connect();
+
+		//find league
+		$query = "SELECT * 
+					FROM $games_table 
+					WHERE League = $league_id";
+
+		if (!$result = $db->query($query))
+		{
+			throw new Exception('Could not execute query');
+		}
+
+		if ($result->num_rows == 0)
+		{
+			return array();
+		}
+
+		//if successful and found game schedules
+		$schedules = array();
+		while ($row = $result->fetch_assoc()) 
+		{
+			array_push($schedules, $row);
+		}
+
+		//return the object
+		$db->close();
+		return $schedules;
+		
+	}
+
+	//insert new game schedule
+	function create_game_schedule($league, $home_team, $away_team, $date)
+	{
+		//setup variables
+		$games_table = GAMES_TABLE;
+		$db = db_connect();
+
+		//"insert new game schedule" query
+		$query = "INSERT INTO $games_table (League, Home_team, Away_team, Start_date) 
+					VALUES ($league, $home_team, $away_team, '$date')";
+
+		//insert new game schedule
+		if (!$db->query($query)) 
+		{
+			return "Query to insert game schedule failed - try again later";
+		}
+
+		//successful
+		$db->close();
+		return true;
 	}
 ?>

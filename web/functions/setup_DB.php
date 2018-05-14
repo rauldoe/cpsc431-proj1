@@ -11,6 +11,7 @@
 	define("LEAGUE_TABLE", "League");
 	define("PLAYERS_TABLE", "Players");
 	define("LINKS_TABLE", "Registration_links");
+	define("GAMES_TABLE", "Game_match");
 
 	//connect to database
 	function db_connect () 

@@ -43,7 +43,10 @@
 	<title>dashboard</title>
 </head>
 <body>
+	<!--something everyone can see/access-->
 	<?php echo "Hello ".$user->username(); ?>
+
+	<a href="change_password.php">Change password</a>
 
 	<!--League owner dashboard-->
 	<?php if ($user->type() == 1): ?>
@@ -53,7 +56,7 @@
 
 		<?php if ($league !== null): ?>
 			<a href="manage_teams.php">Manage teams</a>
-			<a href="schedule_game.php">Schedule games</a>
+			<a href="GameSchedule.php">Schedule games</a>
 		<?php endif; ?>
 			<a href="create_link.php">Create invite link</a>
 			<a href="manage_staff.php">Manage staff</a>
@@ -81,6 +84,7 @@
 
 	<a href="create_link.php">Create invite link</a>
 	<?php endif; ?>
+
 
 	<br>
 	<form method="post" action="login.php">
