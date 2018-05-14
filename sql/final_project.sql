@@ -27,7 +27,7 @@ USE final_project;
 -- Addresses
 CREATE TABLE Addresses 
 (
-    ID 			    int(10) unsigned 	not null AUTO_INCREMENT,
+    ID 			    int unsigned 	not null AUTO_INCREMENT,
 	Street	        varchar(512)		null,
 	City		    varchar(250)		null,
     StateOrRegion   varchar(250)				null,
@@ -40,7 +40,7 @@ CREATE TABLE Addresses
 -- Roles
 CREATE TABLE Roles 
 (
-    ID 			int(10) unsigned 	not null AUTO_INCREMENT,
+    ID 			int unsigned 	not null AUTO_INCREMENT,
 	RoleName	varchar(250)		not null,
 
     PRIMARY KEY (ID)
@@ -49,13 +49,13 @@ CREATE TABLE Roles
 -- Users
 CREATE TABLE Users 
 (
-    ID 			int(10) unsigned 	not null AUTO_INCREMENT,
+    ID 			int unsigned 	not null AUTO_INCREMENT,
     Username	varchar(250) 		not null UNIQUE,
     Password 	char(128) 			not null,
     Email 		varchar(250) 		not null UNIQUE,
 	FirstName	varchar(250)		not null,
 	LastName	varchar(250)		not null,
-    AddressID	int(10)	unsigned	null,
+    AddressID	int	unsigned	null,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (AddressID) REFERENCES Addresses (ID)
@@ -64,9 +64,9 @@ CREATE TABLE Users
 -- Leagues
 CREATE TABLE Leagues 
 (
-    ID 			int(10) unsigned	not null AUTO_INCREMENT,
+    ID 			int unsigned	not null AUTO_INCREMENT,
     LeagueName 	varchar(250)  		not null UNIQUE,
-    ManagerID	int(10) unsigned 	not null,
+    ManagerID	int unsigned 	not null,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (ManagerID) REFERENCES Users (ID)
@@ -75,9 +75,9 @@ CREATE TABLE Leagues
 -- UserRoles
 CREATE TABLE UserRoles 
 (
-    ID 			int(10) unsigned	not null AUTO_INCREMENT,
-    UserID 		int(10) unsigned	null,
-    RoleID		int(10) unsigned	null,
+    ID 			int unsigned	not null AUTO_INCREMENT,
+    UserID 		int unsigned	null,
+    RoleID		int unsigned	null,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (UserID) REFERENCES Users (ID),
@@ -87,10 +87,10 @@ CREATE TABLE UserRoles
 -- Teams
 CREATE TABLE Teams 
 (
-    ID 			int(10) unsigned	not null AUTO_INCREMENT,
-    LeagueID 	int(10)  unsigned	not null,
-    CoachID		int(10)  unsigned	null,
-    TeamName	varchar(250) 		not null,
+    ID 			int unsigned	not null AUTO_INCREMENT,
+    LeagueID 	int unsigned	not null,
+    CoachID		int unsigned	null,
+    TeamName	varchar(250) 	not null,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (LeagueID)  REFERENCES 	Leagues (ID),
@@ -100,9 +100,9 @@ CREATE TABLE Teams
 -- Players
 CREATE TABLE Players 
 (
-    ID 			int(10) unsigned    not null AUTO_INCREMENT,
-    TeamID 		int(10) unsigned	null,
-    UserID		int(10) unsigned	not null,
+    ID 			int unsigned    not null AUTO_INCREMENT,
+    TeamID 		int unsigned	null,
+    UserID		int unsigned	not null,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (TeamID) REFERENCES	Teams (ID),
@@ -112,11 +112,11 @@ CREATE TABLE Players
 -- Games
 CREATE TABLE Games 
 (
-    ID 				int(10) unsigned	not null AUTO_INCREMENT,
-    HomeTeamID 		int(10) unsigned	not null,
-    AwayTeamID 		int(10) unsigned	not null,
-    StartDatetime	datetime  			not null DEFAULT NOW(),
-    Duration		int(10) unsigned	not null DEFAULT 0,
+    ID 				int unsigned	not null AUTO_INCREMENT,
+    HomeTeamID 		int unsigned	not null,
+    AwayTeamID 		int unsigned	not null,
+    StartDatetime	datetime  		not null DEFAULT NOW(),
+    Duration		int unsigned	not null DEFAULT 0,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (HomeTeamID) REFERENCES	Teams (ID),
@@ -126,15 +126,16 @@ CREATE TABLE Games
 -- Stats
 CREATE TABLE Statistics 
 (
-    ID 				int(10) 	unsigned	not null AUTO_INCREMENT,
-    GameID 			int(10)  	unsigned	not null,
-    TeamID 			int(10)  	unsigned	not null,
-    PlayerID 		int(10)  	unsigned	not null,
-    Points			tinyint(10) unsigned    not null DEFAULT 0,
-    Rebounds		tinyint(10) unsigned	not null DEFAULT 0,
-    Assists			tinyint(10) unsigned    not null DEFAULT 0,
-    StartDatetime	datetime  				not null,
-    TimeOnCourt	    int(10) 	unsigned	not null DEFAULT 0,
+    ID 				int 	unsigned	not null AUTO_INCREMENT,
+    GameID 			int  	unsigned	not null,
+    TeamID 			int  	unsigned	not null,
+    CoachID         int     unsigned    not null,
+    PlayerID 		int  	unsigned	not null,
+    Points			tinyint unsigned    not null DEFAULT 0,
+    Rebounds		tinyint unsigned	not null DEFAULT 0,
+    Assists			tinyint unsigned    not null DEFAULT 0,
+    StartDatetime	datetime  			not null,
+    Duration	    int 	unsigned	not null DEFAULT 0,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (GameID)    REFERENCES	Games (ID),
@@ -173,17 +174,17 @@ INSERT INTO Roles(ID, RoleName)
 -- Password uses sha512: hash('sha512', 'manager1');, length=128
 INSERT INTO Users(ID, Username, Password, Email, FirstName, LastName, AddressID)
     VALUES
-        (1,     'manager1'  , '92a881051a0d26ba0fe4a65cb1039c10e18718c68591efb6afbf883b672a328bc8ba8c13fdaa90eedc018c280782cbbd2a842acbd9a5f3b8965012a1ba489234', 'manager1@yahoo.com'  , 'Joemanager1', 'Smith1'   , 1),
-        (2,     'manager2'  , 'dbc55b655de79523a9f1817a9c26624092d92d6f42c235dd9b743f349adc4b832e1bed4b50edb634e52d3a979324b87edb07308f93b6e40a77e89f7a0faa59cc', 'manager2@yahoo.com'  , 'Joemanager2', 'Smith3'   , 2),
-        (3,     'manager3'  , '92b1bab898abf8da2aef212697397329470adf9f65abd21e4fb84537994b8e8c516644b18245eae3f08ed40af3a93e53c0b901cfa4701b97da78c0a77d9434ea', 'manager3@yahoo.com'  , 'Joemanager3', 'Smith3'   , 3),
+        (01,    'manager1'  , '92a881051a0d26ba0fe4a65cb1039c10e18718c68591efb6afbf883b672a328bc8ba8c13fdaa90eedc018c280782cbbd2a842acbd9a5f3b8965012a1ba489234', 'manager1@yahoo.com'  , 'Joemanager1', 'Smith1'   , 1),
+        (02,    'manager2'  , 'dbc55b655de79523a9f1817a9c26624092d92d6f42c235dd9b743f349adc4b832e1bed4b50edb634e52d3a979324b87edb07308f93b6e40a77e89f7a0faa59cc', 'manager2@yahoo.com'  , 'Joemanager2', 'Smith3'   , 2),
+        (03,    'manager3'  , '92b1bab898abf8da2aef212697397329470adf9f65abd21e4fb84537994b8e8c516644b18245eae3f08ed40af3a93e53c0b901cfa4701b97da78c0a77d9434ea', 'manager3@yahoo.com'  , 'Joemanager3', 'Smith3'   , 3),
 
-        (4,     'coach1'    , 'a6f95898a7b957946efe1c0b3158111580fcec376959fe5740401cb254121acc49450af852bbffec146f47b37a2ae94494843cb0b74f67ccf3bb58a1884c11d8', 'coach1@gmail.com'    , 'Stevecoach1', 'Anders1'  , 4),
-        (5,     'coach2'    , '8db47b20f72a31c9736a231950750ac6d4e94a0951f91c29944d3cc3d430fb694fa506783e2733ee9675ad5d03e40b76fc43168294c4628158fdfa1a278a86cc', 'coach2@gmail.com'    , 'Stevecoach2', 'Anders2'  , 5),
-        (6,     'coach3'    , '2feaa1650fd0dd82a6bf7024f23bab21948e110eb0245d3574682c1a6a146f791771f40c9f845b476a9e876f2ea0ad40038a4fdf6a4442aed151c10cdb7fc771', 'coach3@gmail.com'    , 'Stevecoach3', 'Anders3'  , 6),
+        (04,    'coach1'    , 'a6f95898a7b957946efe1c0b3158111580fcec376959fe5740401cb254121acc49450af852bbffec146f47b37a2ae94494843cb0b74f67ccf3bb58a1884c11d8', 'coach1@gmail.com'    , 'Stevecoach1', 'Anders1'  , 4),
+        (05,    'coach2'    , '8db47b20f72a31c9736a231950750ac6d4e94a0951f91c29944d3cc3d430fb694fa506783e2733ee9675ad5d03e40b76fc43168294c4628158fdfa1a278a86cc', 'coach2@gmail.com'    , 'Stevecoach2', 'Anders2'  , 5),
+        (06,    'coach3'    , '2feaa1650fd0dd82a6bf7024f23bab21948e110eb0245d3574682c1a6a146f791771f40c9f845b476a9e876f2ea0ad40038a4fdf6a4442aed151c10cdb7fc771', 'coach3@gmail.com'    , 'Stevecoach3', 'Anders3'  , 6),
         
-        (7,     'observer1' , 'f93a48eb601fcf44b7c2fca8ba9a209a57a5387e50849b0f5bb914b7279048e2957a5b0e9ad12e73b00b07d4d844f1e7b41e3ac12da5b8a826d12dc0d745b910', 'observer1@msn.com'   , 'Bobobserver1', 'West1'   , 7),
-        (8,     'observer2' , '22227a1ebf717f456db10e5a041808bac98ea95ffb50c832659226da06f8cd84653ee7e4a9d4ce1bd1d03349a0d189fa465bb8f5b2c5c1a7a81fedff5d478ac3', 'observer2@msn.com'   , 'Bobobserver2', 'West2'   , 8),
-        (9,     'observer3' , '28161f3601eb4f25b20ba91ec8d847e79efcac21f1dfd34ce19870aeb2b10eae026b98aaae1c1fa19d23a722cee67d39e035eeb58c03870ead8ee003ea3174a8', 'observer3@msn.com'   , 'Bobobserver3', 'West3'   , 9),
+        (07,    'observer1' , 'f93a48eb601fcf44b7c2fca8ba9a209a57a5387e50849b0f5bb914b7279048e2957a5b0e9ad12e73b00b07d4d844f1e7b41e3ac12da5b8a826d12dc0d745b910', 'observer1@msn.com'   , 'Bobobserver1', 'West1'   , 7),
+        (08,    'observer2' , '22227a1ebf717f456db10e5a041808bac98ea95ffb50c832659226da06f8cd84653ee7e4a9d4ce1bd1d03349a0d189fa465bb8f5b2c5c1a7a81fedff5d478ac3', 'observer2@msn.com'   , 'Bobobserver2', 'West2'   , 8),
+        (09,    'observer3' , '28161f3601eb4f25b20ba91ec8d847e79efcac21f1dfd34ce19870aeb2b10eae026b98aaae1c1fa19d23a722cee67d39e035eeb58c03870ead8ee003ea3174a8', 'observer3@msn.com'   , 'Bobobserver3', 'West3'   , 9),
 
         (10,    'player1'   , '264a66d687bd8fb4a90aaee4694dc10a211bc4418eced1c62aafe6bfe5036ce74c72cc5442488fcdfc1259ecaa3fa266efc9ddcb73770730546bd752e66e68c0', 'player1@live.com'    , 'Davidplayer1', 'Unger1'   , 1),
         (11,    'player2'   , '9e53e2e97bcfd9173650adf0fe30ffdb14ad0389b20dc3e440579fbfe43e3567703ca0c596be7f76390649d1787d7405ade03d79434c16ac1667bdfa95c57766', 'player2@live.com'    , 'Davidplayer2', 'Unger2'   , 2),
@@ -248,28 +249,29 @@ INSERT INTO Games(ID, HomeTeamID, AwayTeamID, StartDatetime, Duration)
         (3, 3, 1, '2018-05-13 00:00:00', 60)
         ;
 
--- Stats
-INSERT Statistics(ID, GameID, TeamID, PlayerID, Points, Rebounds, Assists, StartDatetime, TimeOnCourt)
+-- Statistics
+INSERT Statistics(ID, GameID, TeamID, CoachID, PlayerID, Points, Rebounds, Assists, StartDatetime, Duration)
     VALUES
-        (1 , 1, 1, 1, 34, 2, 3, '2018-05-11 00:00:00', 23),
-        (2 , 1, 1, 2, 11, 1, 9, '2018-05-11 00:00:10', 08),
-        (3 , 1, 1, 3, 07, 1, 5, '2018-05-11 00:00:20', 45),
-        (4 , 1, 2, 4, 34, 2, 3, '2018-05-11 00:00:00', 23),
-        (5 , 1, 2, 5, 11, 1, 9, '2018-05-11 00:00:10', 08),
-        (6 , 1, 2, 6, 07, 1, 5, '2018-05-11 00:00:20', 45),
+        (01, 1, 1, 4, 1, 34, 2, 3, '2018-05-11 00:00:00', 23),
+        (02, 1, 1, 4, 2, 11, 1, 9, '2018-05-11 00:00:10', 08),
+        (03, 1, 1, 4, 3, 07, 1, 5, '2018-05-11 00:00:20', 45),
+        (04, 1, 2, 5, 4, 24, 2, 3, '2018-05-11 00:00:00', 23),
+        (05, 1, 2, 5, 5, 19, 1, 9, '2018-05-11 00:00:10', 08),
+        (06, 1, 2, 5, 6, 27, 1, 5, '2018-05-11 00:00:20', 45),
         
-        (7 , 2, 2, 4, 56, 4, 1, '2018-05-12 00:00:00', 44),
-        (8 , 2, 2, 5, 22, 5, 2, '2018-05-12 00:00:10', 54),
-        (9 , 2, 2, 6, 87, 5, 3, '2018-05-12 00:00:20', 12),
-        (10, 2, 3, 7, 16, 7, 5, '2018-05-12 00:00:00', 09),
-        (11, 2, 3, 8, 09, 1, 6, '2018-05-12 00:00:10', 17),
-        (12, 2, 3, 9, 02, 5, 2, '2018-05-12 00:00:20', 22),
+        (07, 2, 2, 5, 4, 56, 4, 1, '2018-05-12 00:00:00', 44),
+        (08, 2, 2, 5, 5, 22, 5, 2, '2018-05-12 00:00:10', 54),
+        (09, 2, 2, 5, 6, 87, 5, 3, '2018-05-12 00:00:20', 12),
+        (10, 2, 3, 6, 7, 16, 7, 5, '2018-05-12 00:00:00', 09),
+        (11, 2, 3, 6, 8, 09, 1, 6, '2018-05-12 00:00:10', 17),
+        (12, 2, 3, 6, 9, 02, 5, 2, '2018-05-12 00:00:20', 22),
 
-        (13, 3, 3, 7, 38, 7, 1, '2018-05-13 00:00:00', 42),
-        (14, 3, 3, 8, 56, 4, 0, '2018-05-13 00:00:10', 17),
-        (15, 3, 3, 9, 67, 3, 5, '2018-05-13 00:00:20', 23),
-        (16, 3, 1, 1, 33, 2, 7, '2018-05-13 00:00:00', 19),
-        (17, 3, 1, 2, 18, 2, 4, '2018-05-13 00:00:10', 32),
-        (18, 3, 1, 3, 24, 8, 0, '2018-05-13 00:00:20', 19)
+        (13, 3, 3, 6, 7, 38, 7, 1, '2018-05-13 00:00:00', 42),
+        (14, 3, 3, 6, 8, 56, 4, 0, '2018-05-13 00:00:10', 17),
+        (15, 3, 3, 6, 9, 67, 3, 5, '2018-05-13 00:00:20', 23),
+        (16, 3, 1, 4, 1, 33, 2, 7, '2018-05-13 00:00:00', 19),
+        (17, 3, 1, 4, 2, 18, 2, 4, '2018-05-13 00:00:10', 32),
+        (18, 3, 1, 4, 3, 24, 8, 0, '2018-05-13 00:00:20', 19),
+        (19, 3, 1, 4, 3, 24, 8, 1, '2018-05-13 00:00:50', 19)
         ;
 

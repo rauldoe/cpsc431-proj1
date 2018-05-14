@@ -1,17 +1,32 @@
 use final_project;
 
+SET @gameId = 1;
+
 SELECT 
-  p.ID
+    s.GameID
+  , s.TeamID
+  , s.PlayerID
+  , MIN(s.CoachID)                  as CoachID
+
+  , MIN(t.TeamName)                 as TeamName
+  , MIN(cu.LastName)                as CoachLastName
+  , MIN(cu.FirstName)                as CoachFirstName
   , u.LastName
   , u.FirstName
-  , count(s.PlayerID)               as GamesPlayed 
-  , avg(coalesce(s.TimeOnCourt, 0)) as TimeOnCourt
-	, avg(coalesce(s.Points, 0))      as Points
-	, avg(coalesce(s.Assists, 0))     as Assists
-	, avg(coalesce(s.Rebounds, 0))    as Rebounds
+  
+	, SUM(COALESCE(s.Points, 0))      as Points
+	, SUM(COALESCE(s.Rebounds, 0))    as Rebounds
+	, SUM(COALESCE(s.Assists, 0))     as Assists
+  , SUM(COALESCE(s.TimeOnCourt, 0)) as TimeOnCourt
     
-  FROM Players as p
-    INNER JOIN  Users as u      on p.UserID = u.ID
-	  LEFT JOIN   Statistics as s on p.ID     = s.PlayerID
-    GROUP BY p.ID
+  FROM Statistics as s 
+    INNER JOIN Games as g   on s.GameID   = g.ID
+    INNER JOIN Teams as t   on s.TeamID   = t.ID
+    INNER JOIN Players as p on s.PlayerID = p.ID
+    INNER JOIN Users as u   on p.UserID   = u.ID
+    INNER JOIN Users as cu  on s.CoachID  = cu.ID
+
+    WHERE s.GameID = @gameId
+    GROUP BY s.GameID, s.TeamID, s.PlayerID
+    ORDER BY s.GameID, s.TeamID, s.PlayerID
 ;
