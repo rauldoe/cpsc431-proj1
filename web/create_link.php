@@ -76,7 +76,7 @@
 	<?php if (!isset($_POST['pick_user_type'])): ?>
 	<form method="post">
 
-		<?php if ($user->type() == 0): ?>
+		<?php if ($user->type() == -1): ?>
 		<select name="user_to_invite">
 			<option value="1">League Owner</option>
 			<option value="2">Coach</option>

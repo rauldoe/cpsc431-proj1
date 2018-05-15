@@ -8,6 +8,8 @@
 		private $type;
 		private $team = null;
 		private $league = null;
+		private $id = null;
+		private $email = null;
 
 		function __construct($username, $type)
 		{
@@ -96,6 +98,38 @@
 			else if( func_num_args() == 1 )
 			{
 				$this->league = func_get_arg(0);
+			}
+
+			return $this;	
+		}
+
+		function my_email()
+		{
+			if( func_num_args() == 0 )
+			{
+				return $this->email;
+			}
+			
+			// void league(League $league)
+			else if( func_num_args() == 1 )
+			{
+				$this->email = func_get_arg(0);
+			}
+
+			return $this;	
+		}
+
+		function my_id()
+		{
+			if( func_num_args() == 0 )
+			{
+				return $this->id;
+			}
+			
+			// void league(League $league)
+			else if( func_num_args() == 1 )
+			{
+				$this->id = func_get_arg(0);
 			}
 
 			return $this;	

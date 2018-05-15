@@ -1,6 +1,6 @@
 -- User: 'user_1'
 -- Password: 'password'
---test
+-- test
 -- 1
 DROP DATABASE IF EXISTS final_project;
 
@@ -19,6 +19,14 @@ GRANT SELECT, INSERT, DELETE, UPDATE, EXECUTE ON final_project.* TO user_1;
 -- 5
 USE final_project;
 
+-- Roles
+CREATE TABLE Role
+(
+    ID int(1) not null AUTO_INCREMENT,
+    RoleName varchar(100) not null UNIQUE,
+
+    PRIMARY KEY (ID)
+);
 
 -- User Table
 CREATE TABLE User (
@@ -29,7 +37,8 @@ CREATE TABLE User (
     User_type int(1) DEFAULT NULL,
     League int(10) unsigned DEFAULT NULL,
 
-    PRIMARY KEY (ID)
+    PRIMARY KEY (ID),
+    FOREIGN KEY (User_type) REFERENCES Role (ID) ON DELETE SET NULL
 );
 
 -- Registration_links Table
@@ -77,7 +86,7 @@ CREATE TABLE Players (
     State varchar(100),
     Country varchar(100),
     ZipCode char(10) DEFAULT NULL,
-    currently_active bit(1) DEFAULT 0,
+    currently_active bit(1) DEFAULT 1,
 
     PRIMARY KEY (ID),
     FOREIGN KEY (Team) REFERENCES Sports_team (ID),
@@ -118,7 +127,13 @@ CREATE TABLE Game_match (
 -- Alters
 
 -- Insert test data:
-
+INSERT INTO Role(ID, RoleName)
+VALUES
+	(-1, "Noboy"),
+	(1, "League Owner"),
+	(2, "Coach"),
+	(3, "Observer");
+    
 
 -- "admin" should have access to everything
 -- league owners should have access to their league only
@@ -127,7 +142,7 @@ INSERT INTO User(ID, Email, Username, Password, User_type, League)
 VALUES
 
 	#PASSWORDS ARE SAME AS USERNAME, this is the hashed version
-	(1, "admin@admin.com", "admin","$2y$10$IDcGxN/A2iKujVty6xE1Fu.D2MHJzqYR1C.YWOl2s8vvLrWMO.jgq", 0, null),
+	(1, "admin@admin.com", "admin","$2y$10$IDcGxN/A2iKujVty6xE1Fu.D2MHJzqYR1C.YWOl2s8vvLrWMO.jgq", -1, null),
 
 	#League1
 	(2, "test@test.com", "league_owner1", "$2y$10$A146VZ9mJtGEGz4ByZtxbeE27ItxU4gTTT6yV0cRqu1Nf/.vZPMDy", 1, 1),
@@ -140,7 +155,7 @@ VALUES
 	(7, "test6@test.com", "kyle", "$2y$10$J0geJsfjmwJNnOPO5iO3LuEL7bp6gQwj5/HqrxsiUIYRMjxmXuySm", 2, 2),
 
 	#For testing 'forgot password'
-	(8, "andreappstuff@gmail.com", "andre", "$2y$10$50BOyaN8CoPrYyp8EP8KEO86V3I0f9ZDepeJcUPOgTM0UU9lnJzPm", 0, null);
+	(8, "andreappstuff@gmail.com", "andre", "$2y$10$50BOyaN8CoPrYyp8EP8KEO86V3I0f9ZDepeJcUPOgTM0UU9lnJzPm", -1, null);
 
 -- Leagues, "League1" is owned by "leage_owner1"
 INSERT INTO League(ID, League_owner, League_name)

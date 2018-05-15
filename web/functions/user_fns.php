@@ -284,4 +284,78 @@
 	
 		return $result_password;
 	}
+	
+	function get_users_by_league($leagueID)
+	{
+		//setup variables
+		$user_table = USER_TABLE;
+		$db = db_connect();
+
+		//find all teams owned by this league
+		$query = "SELECT *
+					FROM $user_table
+					WHERE League = $leagueID";
+
+		if (!$result = $db->query($query))
+		{
+			return null;
+		}
+
+		if ($result->num_rows == 0)
+		{
+			return array();
+		}
+
+		//if successful and found teams
+		$user_array = array();
+		while ($row = $result->fetch_assoc()) 
+		{
+			array_push($user_array, $row);
+		}
+
+		//return the object
+		$db->close();
+		return $user_array;
+		
+	}
+
+	function get_roles()
+	{
+		//setup variables
+		$role_table = "Role";
+		$db = db_connect();
+
+		//find all teams owned by this league
+		$query = "SELECT *
+					FROM $role_table WHERE ID > 1";
+
+		if (!$result = $db->query($query))
+		{
+			return null;
+		}
+
+		if ($result->num_rows == 0)
+		{
+			return array();
+		}
+
+		//if successful and found teams
+		$role_array = array();
+		while ($row = $result->fetch_assoc()) 
+		{
+			array_push($role_array, $row);
+		}
+
+		//return the object
+		$db->close();
+		return $role_array;
+		
+	}
+
+	function insert_staff($email, $username, $password, $type, $league)
+	{
+		register_user($email, $username, $password, $type, $league);
+		header("refresh: 0;");
+		exit;
+	}
 ?>
